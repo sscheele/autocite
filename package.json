@@ -1,0 +1,19 @@
+{
+  "name": "autocite",
+  "version": "1.0.0",
+  "description": "My attempt to make a citation bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sscheele/autocite.git"
+  },
+  "author": "Sam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sscheele/autocite/issues"
+  },
+  "homepage": "https://github.com/sscheele/autocite#readme"
+}
