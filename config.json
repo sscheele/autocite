@@ -1,6 +1,5 @@
 {
     "weights": {
-        //TODO: more weighs for NN layer 2 (weights -> thresholds -> weights -> threshold -> answer)
         "tags": {
             "h1": 1.0,
             "h2": 1.0,
@@ -10,7 +9,7 @@
             "h6": 1.0,
             "p": 1.0
         },
-        "distanceFrom": {
+        "sharesWith": {
             "content": 1.0,
             "copyrightWord": 1.0,
             "copyrightSymbol": 1.0,
@@ -22,5 +21,6 @@
         "final": 5.0,
         "tags": 1.5,
         "distanceFrom": 3.0
-    }
+    },
+    "minContentWords" : 25
 }
