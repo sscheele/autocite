@@ -13,7 +13,8 @@
             "content": 1.0,
             "copyrightWord": 1.0,
             "copyrightSymbol": 1.0,
-            "img": 1.0
+            "img": 1.0,
+            "authorBuzz" : 1.0
         },
         "matchesDateTimeRegex": 1.0
     },

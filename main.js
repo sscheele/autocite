@@ -11,6 +11,7 @@ function writeConfig() {
 }
 
 //trim irrelevant tags (the ones in badTags) and add content variables
+//TODO: remove nodes where the value matches a whitespace regex
 function preprocess(doc) {
     if (!doc.childNodes) {
         return;
@@ -31,8 +32,13 @@ function preprocess(doc) {
 }
 
 function propagateContentUp(doc){
-    //TODO: if more than detcontentpercent of an element is content, mark that element as content as well
-    //use DFS-style recursion so that content tags propagate up
+    if (!doc.childNodes) return;
+    var oneLevelContent = 0;
+    for (var i = 0; i < doc.childNodes.length; i++){
+        propagateContentUp(doc.childNodes[i]);
+        if (doc.childNodes[i].isContent) oneLevelContent++;
+    }
+    if (2*oneLevelContent > doc.childNodes.length) doc.isContent = true;
 }
 
 (function () {
@@ -59,6 +65,11 @@ function propagateContentUp(doc){
             var doc = parse5.parse(body); // Parse the HTML
             preprocess(doc);
             console.log(parse5.serialize(doc));
+            propagateContentUp(doc);
+            console.log(JSON.stringify(doc, function (key, value) {
+                if (key == 'parentNode') { return value.id; }
+                else { return value; }
+            }), 2);
         });
     }
 })();
