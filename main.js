@@ -11,17 +11,16 @@ function writeConfig() {
 }
 
 //trim irrelevant tags (the ones in badTags) and add content variables
-//TODO: remove nodes where the value matches a whitespace regex
 function preprocess(doc) {
-    if (!doc.childNodes) {
-        return;
-    }
+    if (!doc.childNodes) return;
+
     var totalWords = 0;
     for (var i = 0; i < doc.childNodes.length; i++) {
         if (doc.childNodes[i].nodeName == '#text') {
             totalWords += doc.childNodes[i].value.split(" ").length;
         }
-        if (doc.childNodes[i].tagName && badTags.indexOf(doc.childNodes[i].tagName) != -1) {
+        if ((doc.childNodes[i].tagName && badTags.indexOf(doc.childNodes[i].tagName) != -1) ||
+            (doc.childNodes[i].nodeName == '#text' && /^\s+$/.test(doc.childNodes[i].value))) {
             doc.childNodes.splice(i, 1); //remove if a useless tag, then continue
             i--; //decrement i because we're removing from the list over which we're iterating
             continue;
@@ -31,14 +30,45 @@ function preprocess(doc) {
     doc.isContent = totalWords > config.minContentWords;
 }
 
-function propagateContentUp(doc){
-    if (!doc.childNodes) return;
-    var oneLevelContent = 0;
-    for (var i = 0; i < doc.childNodes.length; i++){
-        propagateContentUp(doc.childNodes[i]);
-        if (doc.childNodes[i].isContent) oneLevelContent++;
+function duplicateArray(arr) {
+    var retVal = [];
+    if (!arr) return retVal;
+    for (var i = 0; i < arr.length; i++) {
+        retVal.push(arr[i]);
     }
-    if (2*oneLevelContent > doc.childNodes.length) doc.isContent = true;
+    return retVal;
+}
+
+function genNeuralNet(root) {
+    var retVal = [];
+    var stack = [{node: root, tree: []}];
+    while (stack.length != 0) {
+        var curr = stack.shift();
+        var doc = curr.node;
+        //add ourseleves to ancestry
+        var ancestors = duplicateArray(curr.tree);
+        if (doc.tagName) ancestors.push(doc.tagName);
+
+        if (!doc.childNodes) continue;
+
+        for (var i = 0; i < doc.childNodes.length; i++) {
+            //add text and images to the NN, otherwise add to the stack
+            if (doc.childNodes[i].nodeName == '#text' || doc.childNodes[i].nodeName == 'img') {
+                if (doc.childNodes[i].value) {
+                    var words = doc.childNodes[i].value.split(' ');
+                    for (var i = 0; i < words.length; i++) {
+                        if (/^[^a-zA-Z0-9]*$/.test(words[i])) continue;
+                        retVal.push({ type: "word", value: words[i], ancestry: ancestors, isContent: doc.isContent});
+                    }
+                } else {
+                    retVal.push({type: "img", ancestry: ancestors});
+                }
+                continue;
+            }
+            stack.push({node: doc.childNodes[i], tree: ancestors });
+        }
+    }
+    return retVal;
 }
 
 (function () {
@@ -65,11 +95,8 @@ function propagateContentUp(doc){
             var doc = parse5.parse(body); // Parse the HTML
             preprocess(doc);
             console.log(parse5.serialize(doc));
-            propagateContentUp(doc);
-            console.log(JSON.stringify(doc, function (key, value) {
-                if (key == 'parentNode') { return value.id; }
-                else { return value; }
-            }), 2);
+            var nn = genNeuralNet(doc);
+            console.log(JSON.stringify(nn, null, 2));
         });
     }
 })();
