@@ -1,27 +1,108 @@
 {
     "weights": {
-        "tags": {
-            "h1": 1.0,
-            "h2": 1.0,
-            "h3": 1.0,
-            "h4": 1.0,
-            "h5": 1.0,
-            "h6": 1.0,
-            "p": 1.0
+        "author": {
+            "tags": {
+                "h1": 1.0,
+                "h2": 1.0,
+                "h3": 1.0,
+                "h4": 1.0,
+                "h5": 1.0,
+                "h6": 1.0,
+                "p": 1.0,
+                "span": 1.0
+            },
+            "sharedAncestors": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "distanceFrom": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "matchesNameList": 1.0
         },
-        "sharesWith": {
-            "content": 1.0,
-            "copyrightWord": 1.0,
-            "copyrightSymbol": 1.0,
-            "img": 1.0
+        "title": {
+            "tags": {
+                "h1": 1.0,
+                "h2": 1.0,
+                "h3": 1.0,
+                "h4": 1.0,
+                "h5": 1.0,
+                "h6": 1.0,
+                "p": 1.0,
+                "span": 1.0
+            },
+            "sharedAncestors": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "distanceFrom": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            }
         },
-        "matchesDateTimeRegex": 1.0,
-        "matchesNameList" : 1.0
+        "date": {
+            "tags": {
+                "h1": 1.0,
+                "h2": 1.0,
+                "h3": 1.0,
+                "h4": 1.0,
+                "h5": 1.0,
+                "h6": 1.0,
+                "p": 1.0,
+                "span": 1.0
+            },
+            "sharedAncestors": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "distanceFrom": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "matchesDateTimeRegex": 1.0
+        },
+        "company": {
+            "tags": {
+                "h1": 1.0,
+                "h2": 1.0,
+                "h3": 1.0,
+                "h4": 1.0,
+                "h5": 1.0,
+                "h6": 1.0,
+                "p": 1.0,
+                "span": 1.0
+            },
+            "sharedAncestors": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "distanceFrom": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            }
+        }
     },
     "thresholds": {
         "final": 5.0,
         "tags": 1.5,
         "distanceFrom": 3.0
     },
-    "minContentWords" : 25
+    "minContentWords": 25
 }

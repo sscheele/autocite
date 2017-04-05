@@ -39,15 +39,27 @@ function duplicateArray(arr) {
     return retVal;
 }
 
+function incrementTag(counter, tag){
+    if (counter[tag]) {
+        counter[tag]++;
+        return;
+    }
+    counter[tag] = 1;
+}
+
 function genNeuralNet(root) {
     var retVal = [];
     var stack = [{node: root, tree: []}];
+    var counter = {};
     while (stack.length != 0) {
         var curr = stack.shift();
         var doc = curr.node;
         //add ourseleves to ancestry
         var ancestors = duplicateArray(curr.tree);
-        if (doc.tagName) ancestors.push(doc.tagName);
+        if (doc.tagName) {
+            incrementTag(counter, doc.tagName);
+            ancestors.push(doc.tagName + ' ' + counter[doc.tagName].toString());
+        }
 
         if (!doc.childNodes) continue;
 
@@ -96,7 +108,9 @@ function genNeuralNet(root) {
             preprocess(doc);
             console.log(parse5.serialize(doc));
             var nn = genNeuralNet(doc);
-            console.log(JSON.stringify(nn, null, 2));
+            getDistances(nn);
+            
+            //console.log(JSON.stringify(nn, null, 2));
         });
     }
 })();
