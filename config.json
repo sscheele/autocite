@@ -17,10 +17,12 @@
                 "copyrightSymbol": 1.0,
                 "img": 1.0
             },
+            "squareDistanceFrom": {
+                "content": 1.0,
+                "img": 1.0
+            },
             "distanceFrom": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
                 "img": 1.0
             },
             "matchesNameList": 1.0
@@ -40,6 +42,10 @@
                 "content": 1.0,
                 "copyrightWord": 1.0,
                 "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "squareDistanceFrom": {
+                "content": 1.0,
                 "img": 1.0
             },
             "distanceFrom": {
@@ -62,14 +68,14 @@
             },
             "sharedAncestors": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
+            "squareDistanceFrom": {
+                "content": 1.0,
                 "img": 1.0
             },
             "distanceFrom": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
                 "img": 1.0
             },
             "matchesDateTimeRegex": 1.0
@@ -91,6 +97,12 @@
                 "copyrightSymbol": 1.0,
                 "img": 1.0
             },
+            "squareDistanceFrom": {
+                "content": 1.0,
+                "copyrightWord": 1.0,
+                "copyrightSymbol": 1.0,
+                "img": 1.0
+            },
             "distanceFrom": {
                 "content": 1.0,
                 "copyrightWord": 1.0,
@@ -100,9 +112,36 @@
         }
     },
     "thresholds": {
-        "final": 5.0,
-        "tags": 1.5,
-        "distanceFrom": 3.0
+        "final": {
+            "author": 5.0,
+            "title": 5.0,
+            "date": 5.0,
+            "company": 5.0
+        },
+        "tags": {
+            "author": 1.5,
+            "title": 1.5,
+            "date": 1.5,
+            "company": 1.5
+        },
+        "sharedAncestors": {
+            "author": 1.5,
+            "title": 1.5,
+            "date": 1.5,
+            "company": 1.5
+        },
+        "distanceFrom": {
+            "author": 1.5,
+            "title": 1.5,
+            "date": 1.5,
+            "company": 1.5
+        },
+        "squareDistanceFrom": {
+            "author": 1.5,
+            "title": 1.5,
+            "date": 1.5,
+            "company": 1.5
+        }
     },
     "minContentWords": 25
 }
