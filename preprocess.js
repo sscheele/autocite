@@ -15,7 +15,7 @@ function preprocessHelper(doc, config) {
             i--; //decrement i because we're removing from the list over which we're iterating
             continue;
         }
-        preprocessHelper(doc.childNodes[i]); //yeeeeeeah, recursion in a for loop
+        preprocessHelper(doc.childNodes[i], config); //yeeeeeeah, recursion in a for loop
     }
     doc.isContent = totalWords > config.minContentWords;
 }
