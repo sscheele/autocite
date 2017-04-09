@@ -13,8 +13,7 @@
             },
             "sharedAncestors": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
+                "copyright": 1.0,
                 "img": 1.0
             },
             "squareDistanceFrom": {
@@ -40,8 +39,7 @@
             },
             "sharedAncestors": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
+                "copyright": 1.0,
                 "img": 1.0
             },
             "squareDistanceFrom": {
@@ -50,8 +48,7 @@
             },
             "distanceFrom": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
+                "copyright": 1.0,
                 "img": 1.0
             }
         },
@@ -93,20 +90,17 @@
             },
             "sharedAncestors": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
+                "copyright": 1.0,
                 "img": 1.0
             },
             "squareDistanceFrom": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
+                "copyright": 1.0,
                 "img": 1.0
             },
             "distanceFrom": {
                 "content": 1.0,
-                "copyrightWord": 1.0,
-                "copyrightSymbol": 1.0,
+                "copyright": 1.0,
                 "img": 1.0
             }
         }

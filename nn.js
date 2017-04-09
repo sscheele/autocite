@@ -1,3 +1,5 @@
+var config = require('./config.js');
+
 function sig(x) {
     return (1.0 / (1.0 + Math.exp(-1.0 * x)));
 }
@@ -8,8 +10,8 @@ function sigPrime(x) {
     return tmp + tmp * tmp;
 }
 
-function genNN(config, target) {
-    var retVal = [{}, {}, {output: {value: 0, weights: {}}}];
+function genNN(target) {
+    var retVal = [{}, {}, { output: { value: 0, weights: {} } }];
     for (var feature in config[target]) {
         tmp = { value: 0, weights: {} };
         if (typeof config[target][feature] == 'object') {
@@ -24,22 +26,32 @@ function genNN(config, target) {
     return retVal;
 }
 
-function genAllNNs(config) {
-    var retVal = [];
-    for (var target in config) {
-
-    }
-    return retVal;
-}
-var retVal = {
-    "author": [
-        {
-            "h1": config.author.tags.h1
+function genInputNodes(word) {
+    var retVal = {};
+    for (var target in config.weights) {
+        //tag weights
+        retVal[target] = {}
+        if (word.ancestry.length > 0) {
+            var tag = word.ancestry[word.ancestry.length - 1];
+            retVal[target][tag] = { value: 1 };
         }
-    ]
-};
+        for (var tag in config.weights[target]) {
+            if (!retVal[target][tag]){
+                retVal[target][tag] = {value: 0};
+            }
+        }
+        
+        //shared ancestry
+    }
+
 }
 
 module.exports = {
-
+    genAllNNs: function () {
+        var retVal = {};
+        for (var target in config) {
+            retVal[target] = genNN(config[target]);
+        }
+        return retVal;
+    }
 };

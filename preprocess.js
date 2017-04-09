@@ -1,7 +1,8 @@
 var badTags = ['head', 'link', 'script', 'nav', 'form'];
+var config = require('./config.js');
 
 //trim irrelevant tags (the ones in badTags) and add content variables
-function preprocessHelper(doc, config) {
+function preprocessHelper(doc) {
     if (!doc.childNodes) return;
 
     var totalWords = 0;
@@ -15,7 +16,7 @@ function preprocessHelper(doc, config) {
             i--; //decrement i because we're removing from the list over which we're iterating
             continue;
         }
-        preprocessHelper(doc.childNodes[i], config); //yeeeeeeah, recursion in a for loop
+        preprocessHelper(doc.childNodes[i]); //yeeeeeeah, recursion in a for loop
     }
     doc.isContent = totalWords > config.minContentWords;
 }
@@ -73,7 +74,9 @@ function genInputNeurons(root) {
     return retVal;
 }
 
+//getDistances will get the distance to content, copyright elements, etc and shared ancestry
 function getDistances(nn) {
+    var familyTree = {content: {}, copyright: {}, img: {}};
     for (var i = 0; i < nn.length; i++) {
         nn[i].distance = {
             content: nn[i].isContent ? 0 : Number.MAX_SAFE_INTEGER,
@@ -81,6 +84,21 @@ function getDistances(nn) {
             copyrightWord: Number.MAX_SAFE_INTEGER,
             copyrightSymbol: Number.MAX_SAFE_INTEGER
         };
+        if (nn[i].isContent){
+            for (ancestor in nn[i].ancestry){
+                familyTree.content[ancestor] = true;
+            }
+        }
+        if (nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©'){
+            for (ancestor in nn[i].ancestry){
+                familyTree.copyright[ancestor] = true;
+            }
+        }
+        if (nn.type == "img"){
+            for (ancestor in nn[i].ancestry){
+                familyTree.img[ancestor] = true;
+            }
+        }
     }
 
     var setDistanceForward = function (tag, net, i) {
@@ -98,8 +116,7 @@ function getDistances(nn) {
     var was = {
         content: false,
         img: false,
-        copyrightSymbol: false,
-        copyrightWord: false
+        copyright: false
     };
     for (var i = 0; i < nn.length; i++) {
         if (nn[i].isContent ^ was.content) {
@@ -119,26 +136,24 @@ function getDistances(nn) {
             was.img = nn[i].type == 'img';
             continue;
         }
-        if ((nn[i].value.toLowerCase() == 'copyright') ^ was.copyrightWord) {
-            if (was.copyrightWord) {
-                setDistanceForward('copyrightWord', nn, i);
+        if ((nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©') ^ was.copyright) {
+            if (was.copyright) {
+                setDistanceForward('copyright', nn, i);
             } else {
-                setDistanceBack('copyrightWord', nn, i);
+                setDistanceBack('copyright', nn, i);
             }
-            was.copyrightWord = nn[i].value.toLowerCase() == 'copyright';
+            was.copyright = nn[i].value.toLowerCase() == 'copyright';
         }
-        if ((nn[i].value == '©') ^ was.copyrightSymbol) {
-            if (was.copyrightSymbol) {
-                setDistanceForward('copyrightSymbol', nn, i);
-            } else {
-                setDistanceBack('copyrightSymbol', nn, i);
+        nn[i].contentAncestorDist = 0;
+        if (!nn[i].isContent) {
+            if (nn[i].ancestry.length > 0){
+                
             }
-            was.copyrightSymbol = nn[i].value == '©';
         }
     }
 }
 
-module.exports = function (doc, config) {
+module.exports = function (doc) {
     preprocessHelper(doc, config);
     var nn = genInputNeurons(doc);
     getDistances(nn);

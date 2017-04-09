@@ -2,10 +2,10 @@ var parse5 = require('parse5');
 var request = require('request');
 var fs = require('fs');
 var getInputNodes = require('./preprocess.js');
+var config = require('./config.js');
 
 
-
-function writeConfig(config) {
+function writeConfig() {
     fs.writeFile('config.json', JSON.stringify(config));
 }
 
@@ -14,9 +14,6 @@ function writeConfig(config) {
         console.log("Required argument: a file with a list of urls");
         return;
     }
-
-    //TODO: more weighs for NN layer 2 (weights -> thresholds -> weights -> threshold -> answer)
-    var config = JSON.parse(fs.readFileSync('config.json').toString());
 
     var lines = fs.readFileSync(process.argv[2]).toString().split("\n");
     //fight me
@@ -35,7 +32,7 @@ function writeConfig(config) {
                 return;
             }
             var doc = parse5.parse(body); // Parse the HTML
-            var nn = getInputNodes(doc, config);
+            var nn = getInputNodes(doc);
 
             //TODO: When parsing for title, it should take up an entire tag
             //var results = applyNN(nn);
