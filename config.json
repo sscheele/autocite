@@ -12,17 +12,17 @@
                 "span": 1.0
             },
             "sharedAncestors": {
-                "content": 1.0,
-                "copyright": 1.0,
-                "img": 1.0
+                "saContent": 1.0,
+                "saCopyright": 1.0,
+                "saImg": 1.0
             },
             "squareDistanceFrom": {
-                "content": 1.0,
-                "img": 1.0
+                "sqContent": 1.0,
+                "sqImg": 1.0
             },
             "distanceFrom": {
-                "content": 1.0,
-                "img": 1.0
+                "dfContent": 1.0,
+                "dfImg": 1.0
             },
             "matchesNameList": 1.0
         },
@@ -38,19 +38,20 @@
                 "span": 1.0
             },
             "sharedAncestors": {
-                "content": 1.0,
-                "copyright": 1.0,
-                "img": 1.0
+                "saContent": 1.0,
+                "saCopyright": 1.0,
+                "saImg": 1.0
             },
             "squareDistanceFrom": {
-                "content": 1.0,
-                "img": 1.0
+                "sqContent": 1.0,
+                "sqImg": 1.0
             },
             "distanceFrom": {
-                "content": 1.0,
-                "copyright": 1.0,
-                "img": 1.0
-            }
+                "dfContent": 1.0,
+                "dfCopyright": 1.0,
+                "dfImg": 1.0
+            },
+            "titleCasePercent": 1.0
         },
         "date": {
             "tags": {
@@ -64,16 +65,16 @@
                 "span": 1.0
             },
             "sharedAncestors": {
-                "content": 1.0,
-                "img": 1.0
+                "saContent": 1.0,
+                "saImg": 1.0
             },
             "squareDistanceFrom": {
-                "content": 1.0,
-                "img": 1.0
+                "sqContent": 1.0,
+                "sqImg": 1.0
             },
             "distanceFrom": {
-                "content": 1.0,
-                "img": 1.0
+                "dfContent": 1.0,
+                "dfImg": 1.0
             },
             "matchesDateTimeRegex": 1.0
         },
@@ -89,52 +90,20 @@
                 "span": 1.0
             },
             "sharedAncestors": {
-                "content": 1.0,
-                "copyright": 1.0,
-                "img": 1.0
+                "saContent": 1.0,
+                "saCopyright": 1.0,
+                "saImg": 1.0
             },
             "squareDistanceFrom": {
-                "content": 1.0,
-                "copyright": 1.0,
-                "img": 1.0
+                "sqContent": 1.0,
+                "sqImg": 1.0,
+                "sqCopyright": 1.0
             },
             "distanceFrom": {
-                "content": 1.0,
-                "copyright": 1.0,
-                "img": 1.0
+                "dfContent": 1.0,
+                "dfCopyright": 1.0,
+                "dfImg": 1.0
             }
-        }
-    },
-    "thresholds": {
-        "final": {
-            "author": 5.0,
-            "title": 5.0,
-            "date": 5.0,
-            "company": 5.0
-        },
-        "tags": {
-            "author": 1.5,
-            "title": 1.5,
-            "date": 1.5,
-            "company": 1.5
-        },
-        "sharedAncestors": {
-            "author": 1.5,
-            "title": 1.5,
-            "date": 1.5,
-            "company": 1.5
-        },
-        "distanceFrom": {
-            "author": 1.5,
-            "title": 1.5,
-            "date": 1.5,
-            "company": 1.5
-        },
-        "squareDistanceFrom": {
-            "author": 1.5,
-            "title": 1.5,
-            "date": 1.5,
-            "company": 1.5
         }
     },
     "minContentWords": 25
