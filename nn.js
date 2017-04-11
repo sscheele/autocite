@@ -12,30 +12,31 @@ function sigPrime(x) {
 
 function genNN(target) {
     var retVal = [{}, {}, { output: { value: 0, weights: {} } }];
-    for (var feature in config[target]) {
+    for (var feature in target) {
         tmp = { value: 0, weights: {} };
-        if (typeof config[target][feature] == 'object') {
-            for (var subFeature in config[target][feature]) {
-                tmp.weights[subFeature] = config[target][feature][subFeature];
+        if (typeof target[feature] == 'object') {
+            for (var subFeature in target[feature]) {
+                tmp.weights[subFeature] = target[feature][subFeature];
             }
         } else {
-            tmp.weights[feature] = config[target][feature];
+            tmp.weights[feature] = target[feature];
         }
         retVal[1][feature] = tmp;
     }
     return retVal;
 }
 
-function genInputNodes(wordCollection) {
-    var retVal = {};
-    
+function genInputNodes(word) {
+    return {
+
+    };
 }
 
 module.exports = {
     genAllNNs: function () {
         var retVal = {};
         for (var target in config.weights) {
-            retVal[target] = genNN(config[target]);
+            retVal[target] = genNN(config.weights[target]);
         }
         return retVal;
     }
