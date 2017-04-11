@@ -28,9 +28,9 @@ function genNN(target) {
 }
 
 function genInputNodes(wordArr) {
-    var word = wordArr[wordArr.length / 2]; //this is close enough for many features
+    var word = wordArr[Math.floor(wordArr.length / 2)]; //this is close enough for many features
     var sentence = wordArr.reduce(function(accum, curr){
-        accum += curr.value + ' ';
+        return accum + curr.value + ' ';
     }, '');
     var tag = '';
     if (word.ancestry.length > 0) tag = word.ancestry[word.ancestry.length - 1].split(' ')[0];
@@ -46,25 +46,25 @@ function genInputNodes(wordArr) {
     }
     var numDateRegex = function(str){
         var retVal = 0;
-        for (regex in dateRegexes){
-            if (regex.test(str)) retVal++;
+        for (var regex in dateRegexes){
+            if (dateRegexes[regex].test(str)) retVal++;
         }
         return retVal;
     }
     //sum up the number of words that begin with caps (exclude symbols), divide by number of words, and multiply by 100 (while converting to a float)
     var pctTtitleCase = function(strArr){
-        return (100.0 * strArr.reduce(function(acc, val){if (val[0] != val[0].toLowerCase()) acc++;}, 0)) / (1.0 * strArr.length);
+        return (100.0 * strArr.reduce(function(acc, val){if (val.value[0] != val.value[0].toLowerCase()) acc++;}, 0)) / (1.0 * strArr.length);
     }
     //check this shit out, a 20-line return statement
     return {
-        h1: {value: tag == 'h1' ? 1 : undefined},
-        h2: {value: tag == 'h2' ? 1 : undefined},
-        h3: {value: tag == 'h3' ? 1 : undefined},
-        h4: {value: tag == 'h4' ? 1 : undefined},
-        h5: {value: tag == 'h5' ? 1 : undefined},
-        h6: {value: tag == 'h6' ? 1 : undefined},
-        span: {value: tag == 'span' ? 1 : undefined},
-        p: {value: tag == 'p' ? 1 : undefined},
+        h1: {value: tag == 'h1' ? 1 : -1},
+        h2: {value: tag == 'h2' ? 1 : -1},
+        h3: {value: tag == 'h3' ? 1 : -1},
+        h4: {value: tag == 'h4' ? 1 : -1},
+        h5: {value: tag == 'h5' ? 1 : -1},
+        h6: {value: tag == 'h6' ? 1 : -1},
+        span: {value: tag == 'span' ? 1 : -1},
+        p: {value: tag == 'p' ? 1 : -1},
         saContent: {value: word.saContent},
         saCopyright: {value: word.saCopyright},
         saImg: {value: word.saImg},
@@ -76,7 +76,7 @@ function genInputNodes(wordArr) {
         sqCopyright: {value: squareIf(word.distance.copyright)},
         matchesDateTimeRegex: {value: numDateRegex(sentence)},
         titleCasePercent: {value: pctTtitleCase(wordArr)},
-        matchesNameList: {value: sentence.reduce(function(acc, val){ if (nameTest.hasFirst(val) || nameTest.hasLast(val)) acc++;}, 0)}
+        matchesNameList: {value: wordArr.reduce(function(acc, val){ if (nameTest.hasFirst(val.value) || nameTest.hasLast(val.value)) return acc+1; return acc;}, 0)}
     };
 }
 
@@ -87,5 +87,6 @@ module.exports = {
             retVal[target] = genNN(config.weights[target]);
         }
         return retVal;
-    }
+    },
+    genInputNodes: genInputNodes
 };

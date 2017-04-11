@@ -43,7 +43,7 @@ function genWordObjects(root) {
     var stack = [{ node: root, tree: [] }];
     var counter = {};
     while (stack.length != 0) {
-        var curr = stack.shift();
+        var curr = stack.pop();
         var doc = curr.node;
         //add ourseleves to ancestry
         var ancestors = duplicateArray(curr.tree);
@@ -53,7 +53,7 @@ function genWordObjects(root) {
         }
 
         if (!doc.childNodes) continue;
-
+        var tStack = [];
         for (var i = 0; i < doc.childNodes.length; i++) {
             //add text and images to the NN, otherwise add to the stack
             if (doc.childNodes[i].nodeName == '#text' || doc.childNodes[i].nodeName == 'img') {
@@ -68,8 +68,9 @@ function genWordObjects(root) {
                 }
                 continue;
             }
-            stack.push({ node: doc.childNodes[i], tree: ancestors });
+            tStack.push({ node: doc.childNodes[i], tree: ancestors });
         }
+        while (tStack.length > 0) stack.push(tStack.pop()); //this way, elements should be dealt with in order, I think
     }
     return retVal;
 }
@@ -79,35 +80,35 @@ function getDistances(nn) {
     var familyTree = {content: {}, copyright: {}, img: {}};
     for (var i = 0; i < nn.length; i++) {
         nn[i].distance = {
-            content: nn[i].isContent ? 0 : undefined,
-            img: nn[i].type == "img" ? 0 : undefined,
-            copyright: nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©' ? 0 : undefined,
+            content: nn[i].isContent ? 0 : -1,
+            img: nn[i].type == "img" ? 0 : -1,
+            copyright: nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©' ? 0 : -1,
         };
         if (nn[i].isContent){
-            for (ancestor in nn[i].ancestry){
+            for (var ancestor in nn[i].ancestry){
                 familyTree.content[ancestor] = true;
             }
         }
         if (nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©'){
-            for (ancestor in nn[i].ancestry){
+            for (var ancestor in nn[i].ancestry){
                 familyTree.copyright[ancestor] = true;
             }
         }
         if (nn.type == "img"){
-            for (ancestor in nn[i].ancestry){
+            for (var ancestor in nn[i].ancestry){
                 familyTree.img[ancestor] = true;
             }
         }
     }
 
     var setDistanceForward = function (tag, net, i) {
-        for (j = 1; i + j < net.length && (!net[i + j].distance[tag] || net[i + j].distance[tag] > j); j++) {
+        for (var j = 1; i + j < net.length && (net[i + j].distance[tag] == -1 || net[i + j].distance[tag] > j); j++) {
             net[i + j].distance[tag] = j;
         }
     }
 
     var setDistanceBack = function (tag, net, i) {
-        for (var j = 1; j <= i && net[i - j].distance[tag] > j; j++) {
+        for (var j = 1; j <= i && (net[i + j].distance[tag] == -1 || net[i - j].distance[tag] > j); j++) {
             net[i - j].distance[tag] = j;
         }
     }

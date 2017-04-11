@@ -35,9 +35,11 @@ function writeConfig() {
             var doc = parse5.parse(body); // Parse the HTML
             var wordInfo = getWordInfo(doc);
             var nns = nnlib.genAllNNs();
+            var inputNode = nnlib.genInputNodes([wordInfo[0]]);
 
             console.log(JSON.stringify(wordInfo, null, 2));
             //console.log(JSON.stringify(nns));
+            //console.log(JSON.stringify(inputNode, null, 2));
             //TODO: When parsing for title, it should take up an entire tag
             
             
