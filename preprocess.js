@@ -38,7 +38,7 @@ function incrementTag(counter, tag) {
     counter[tag] = 1;
 }
 
-function genInputNeurons(root) {
+function genWordObjects(root) {
     var retVal = [];
     var stack = [{ node: root, tree: [] }];
     var counter = {};
@@ -144,18 +144,40 @@ function getDistances(nn) {
             }
             was.copyright = nn[i].value.toLowerCase() == 'copyright';
         }
-        nn[i].contentAncestorDist = 0;
+        nn[i].saContent = 0;
         if (!nn[i].isContent) {
-            if (nn[i].ancestry.length > 0){
-                
+            var j = 1;
+            var lim = nn[i].ancestry.length;
+            for (; lim > j; j++){
+                if (familyTree.content[nn[i].ancestry[lim-j]]) break;
             }
+            nn[i].saContent = j;
         }
+        nn[i].saCopyright = 0;
+        if (nn[i].value.toLowerCase() != 'copyright' && nn[i].value != '©') {
+            var j = 1;
+            var lim = nn[i].ancestry.length;
+            for (; lim > j; j++){
+                if (familyTree.copyright[nn[i].ancestry[lim-j]]) break;
+            }
+            nn[i].saCopyright = j;
+        }
+        nn[i].saImg = 0;
+        if (nn[i].type != 'img') {
+            var j = 1;
+            var lim = nn[i].ancestry.length;
+            for (; lim > j; j++){
+                if (familyTree.img[nn[i].ancestry[lim-j]]) break;
+            }
+            nn[i].saImg = j;
+        }
+        
     }
 }
 
 module.exports = function (doc) {
     preprocessHelper(doc, config);
-    var nn = genInputNeurons(doc);
+    var nn = genWordObjects(doc);
     getDistances(nn);
     return nn;
 };

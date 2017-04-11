@@ -1,8 +1,9 @@
 var parse5 = require('parse5');
 var request = require('request');
 var fs = require('fs');
-var getInputNodes = require('./preprocess.js');
+var getWordInfo = require('./preprocess.js');
 var config = require('./config.js');
+var nnlib = require('./nn.js');
 
 
 function writeConfig() {
@@ -32,11 +33,14 @@ function writeConfig() {
                 return;
             }
             var doc = parse5.parse(body); // Parse the HTML
-            var nn = getInputNodes(doc);
+            var wordInfo = getWordInfo(doc);
+            var nns = nnlib.genAllNNs();
 
+            //console.log(JSON.stringify(wordInfo, null, 2));
+            console.log(JSON.stringify(nns));
             //TODO: When parsing for title, it should take up an entire tag
-            //var results = applyNN(nn);
-            console.log(JSON.stringify(nn, null, 2));
+            
+            
         });
     }
 })();

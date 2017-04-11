@@ -26,30 +26,15 @@ function genNN(target) {
     return retVal;
 }
 
-function genInputNodes(word) {
+function genInputNodes(wordCollection) {
     var retVal = {};
-    for (var target in config.weights) {
-        //tag weights
-        retVal[target] = {}
-        if (word.ancestry.length > 0) {
-            var tag = word.ancestry[word.ancestry.length - 1];
-            retVal[target][tag] = { value: 1 };
-        }
-        for (var tag in config.weights[target]) {
-            if (!retVal[target][tag]){
-                retVal[target][tag] = {value: 0};
-            }
-        }
-        
-        //shared ancestry
-    }
-
+    
 }
 
 module.exports = {
     genAllNNs: function () {
         var retVal = {};
-        for (var target in config) {
+        for (var target in config.weights) {
             retVal[target] = genNN(config[target]);
         }
         return retVal;
