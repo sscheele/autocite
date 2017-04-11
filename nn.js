@@ -1,4 +1,5 @@
 var config = require('./config.js');
+var nameTest = require('./name-test.js');
 
 function sig(x) {
     return (1.0 / (1.0 + Math.exp(-1.0 * x)));
@@ -54,6 +55,7 @@ function genInputNodes(wordArr) {
     var pctTtitleCase = function(strArr){
         return (100.0 * strArr.reduce(function(acc, val){if (val[0] != val[0].toLowerCase()) acc++;}, 0)) / (1.0 * strArr.length);
     }
+    //check this shit out, a 20-line return statement
     return {
         h1: {value: tag == 'h1' ? 1 : undefined},
         h2: {value: tag == 'h2' ? 1 : undefined},
@@ -74,7 +76,7 @@ function genInputNodes(wordArr) {
         sqCopyright: {value: squareIf(word.distance.copyright)},
         matchesDateTimeRegex: {value: numDateRegex(sentence)},
         titleCasePercent: {value: pctTtitleCase(wordArr)},
-
+        matchesNameList: {value: sentence.reduce(function(acc, val){ if (nameTest.hasFirst(val) || nameTest.hasLast(val)) acc++;}, 0)}
     };
 }
 
