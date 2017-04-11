@@ -79,10 +79,9 @@ function getDistances(nn) {
     var familyTree = {content: {}, copyright: {}, img: {}};
     for (var i = 0; i < nn.length; i++) {
         nn[i].distance = {
-            content: nn[i].isContent ? 0 : Number.MAX_SAFE_INTEGER,
-            img: Number.MAX_SAFE_INTEGER,
-            copyrightWord: Number.MAX_SAFE_INTEGER,
-            copyrightSymbol: Number.MAX_SAFE_INTEGER
+            content: nn[i].isContent ? 0 : undefined,
+            img: nn[i].type == "img" ? 0 : undefined,
+            copyright: nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©' ? 0 : undefined,
         };
         if (nn[i].isContent){
             for (ancestor in nn[i].ancestry){
@@ -102,7 +101,7 @@ function getDistances(nn) {
     }
 
     var setDistanceForward = function (tag, net, i) {
-        for (j = 1; i + j < net.length && net[i + j].distance[tag] > j; j++) {
+        for (j = 1; i + j < net.length && (!net[i + j].distance[tag] || net[i + j].distance[tag] > j); j++) {
             net[i + j].distance[tag] = j;
         }
     }

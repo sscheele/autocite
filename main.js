@@ -36,8 +36,8 @@ function writeConfig() {
             var wordInfo = getWordInfo(doc);
             var nns = nnlib.genAllNNs();
 
-            //console.log(JSON.stringify(wordInfo, null, 2));
-            console.log(JSON.stringify(nns));
+            console.log(JSON.stringify(wordInfo, null, 2));
+            //console.log(JSON.stringify(nns));
             //TODO: When parsing for title, it should take up an entire tag
             
             

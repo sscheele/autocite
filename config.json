@@ -103,7 +103,8 @@
                 "dfContent": 1.0,
                 "dfCopyright": 1.0,
                 "dfImg": 1.0
-            }
+            },
+            "titleCasePercent": 1.0
         }
     },
     "minContentWords": 25
