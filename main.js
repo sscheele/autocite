@@ -2,13 +2,8 @@ var parse5 = require('parse5');
 var request = require('request');
 var fs = require('fs');
 var getWordInfo = require('./preprocess.js');
-var config = require('./config.js').cfg;
+var config = require('./config.js');
 var nnlib = require('./nn.js');
-
-
-function writeConfig() {
-    fs.writeFile('config.json', JSON.stringify(config));
-}
 
 function generateCandidates(wordInfo) {
     var tagWords = {};
@@ -49,8 +44,6 @@ function generateCandidates(wordInfo) {
             }
             var doc = parse5.parse(body); // Parse the HTML
             var wordInfo = getWordInfo(doc);
-            var nns = nnlib.genAllNNs();
-            var inputNode = nnlib.genInputNodes([wordInfo[0]]);
 
             //console.log(JSON.stringify(wordInfo, null, 2));
             //console.log(JSON.stringify(nns));
@@ -58,8 +51,8 @@ function generateCandidates(wordInfo) {
             var candidates = generateCandidates(wordInfo);
             for (var candidate in candidates){
                 var inNode = nnlib.genInputNodes(candidates[candidate].words);
-                for (nnName in nns){
-                    var prob = nnlib.predict(nns[nnName], inNode);
+                for (nnName in config.cfg.nns){
+                    var prob = nnlib.predict(config.cfg.nns[nnName], inNode);
                     console.log('[' + nnName + ': ' + prob + '] "' + candidates[candidate].raw);
                 }
             }

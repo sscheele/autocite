@@ -1,4 +1,3 @@
-var config = require('./config.js').cfg;
 var nameTest = require('./name-test.js');
 var alpha = .1;
 
@@ -10,22 +9,6 @@ function sigPrime(x) {
     //deriv = 1/(1 + e^x) + 1/((1+e^x)^2)
     var tmp = 1.0 / (1.0 + Math.exp(x));
     return tmp + tmp * tmp;
-}
-
-function genNN(target) {
-    var retVal = [{}, {}, { output: { weights: {} } }];
-    for (var feature in target) {
-        tmp = { weights: {} };
-        if (typeof target[feature] == 'object') {
-            for (var subFeature in target[feature]) {
-                tmp.weights[subFeature] = target[feature][subFeature];
-            }
-        } else {
-            tmp.weights[feature] = target[feature];
-        }
-        retVal[1][feature] = tmp;
-    }
-    return retVal;
 }
 
 function predict(nn, input){
@@ -111,13 +94,6 @@ function genInputNodes(wordArr) {
 }
 
 module.exports = {
-    "genAllNNs": function () {
-        var retVal = {};
-        for (var target in config.weights) {
-            retVal[target] = genNN(config.weights[target]);
-        }
-        return retVal;
-    },
     "genInputNodes": genInputNodes,
     "predict": predict,
     "propagateBack": propagateBack

@@ -1,111 +1,231 @@
 {
-    "weights": {
-        "author": {
-            "tags": {
-                "h1": 0.5,
-                "h2": 0.5,
-                "h3": 0.5,
-                "h4": 0.5,
-                "h5": 0.5,
-                "h6": 0.5,
-                "p": 0.5,
-                "span": 0.5
+    "nns": {
+        "author": [
+            {},
+            {
+                "tags": {
+                    "weights": {
+                        "h1": 0.5,
+                        "h2": 0.5,
+                        "h3": 0.5,
+                        "h4": 0.5,
+                        "h5": 0.5,
+                        "h6": 0.5,
+                        "p": 0.5,
+                        "span": 0.5
+                    },
+                    "value": 0
+                },
+                "sharedAncestors": {
+                    "value": 0,
+                    "weights": {
+                        "saContent": 0.5,
+                        "saCopyright": 0.5,
+                        "saImg": 0.5
+                    }
+                },
+                "squareDistanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "sqContent": 0.5,
+                        "sqImg": 0.5
+                    }
+                },
+                "distanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "dfContent": 0.5,
+                        "dfImg": 0.5
+                    }
+                },
+                "matchesNameList": {
+                    "value": 0,
+                    "weights": {
+                        "matchesNameList": 0.5
+                    }
+                }
             },
-            "sharedAncestors": {
-                "saContent": 0.5,
-                "saCopyright": 0.5,
-                "saImg": 0.5
+            {
+                "output": {
+                    "value": 0,
+                    "weights": {
+                        "tags": 0.5,
+                        "sharedAncestors": 0.5,
+                        "squareDistanceFrom": 0.5,
+                        "distanceFrom": 0.5,
+                        "matchesNameList": 0.5
+                    }
+                }
+            }
+        ],
+        "title": [
+            {},
+            {
+                "tags": {
+                    "weights": {
+                        "h1": 0.5,
+                        "h2": 0.5,
+                        "h3": 0.5,
+                        "h4": 0.5,
+                        "h5": 0.5,
+                        "h6": 0.5,
+                        "p": 0.5,
+                        "span": 0.5
+                    }
+                },
+                "sharedAncestors": {
+                    "value": 0,
+                    "weights": {
+                        "saContent": 0.5,
+                        "saCopyright": 0.5,
+                        "saImg": 0.5
+                    }
+                },
+                "squareDistanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "sqContent": 0.5,
+                        "sqImg": 0.5
+                    }
+                },
+                "distanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "dfContent": 0.5,
+                        "dfCopyright": 0.5,
+                        "dfImg": 0.5
+                    }
+                },
+                "titleCasePercent": {
+                    "value": 0,
+                    "weights": {
+                        "titleCasePercent": 0.5
+                    }
+                }
             },
-            "squareDistanceFrom": {
-                "sqContent": 0.5,
-                "sqImg": 0.5
+            {
+                "output": {
+                    "value": 0,
+                    "weights": {
+                        "tags": 0.5,
+                        "sharedAncestors": 0.5,
+                        "squareDistanceFrom": 0.5,
+                        "distanceFrom": 0.5,
+                        "titleCasePercent": 0.5
+                    }
+                }
+            }
+        ],
+        "date": [
+            {},
+            {
+                "tags": {
+                    "weights": {
+                        "h1": 0.5,
+                        "h2": 0.5,
+                        "h3": 0.5,
+                        "h4": 0.5,
+                        "h5": 0.5,
+                        "h6": 0.5,
+                        "p": 0.5,
+                        "span": 0.5
+                    }
+                },
+                "sharedAncestors": {
+                    "value": 0,
+                    "weights": {
+                        "saContent": 0.5,
+                        "saImg": 0.5
+                    }
+                },
+                "squareDistanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "sqContent": 0.5,
+                        "sqImg": 0.5
+                    }
+                },
+                "distanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "dfContent": 0.5,
+                        "dfImg": 0.5
+                    }
+                },
+                "matchesDateTimeRegex": 0.5
             },
-            "distanceFrom": {
-                "dfContent": 0.5,
-                "dfImg": 0.5
+            {
+                "output": {
+                    "value": 0,
+                    "weights": {
+                        "tags": 0.5,
+                        "sharedAncestors": 0.5,
+                        "squareDistanceFrom": 0.5,
+                        "distanceFrom": 0.5,
+                        "matchesDateTimeRegex": 0.5
+                    }
+                }
+            }
+        ],
+        "company": [
+            {},
+            {
+                "tags": {
+                    "weights": {
+                        "h1": 0.5,
+                        "h2": 0.5,
+                        "h3": 0.5,
+                        "h4": 0.5,
+                        "h5": 0.5,
+                        "h6": 0.5,
+                        "p": 0.5,
+                        "span": 0.5
+                    }
+                },
+                "sharedAncestors": {
+                    "value": 0,
+                    "weights": {
+                        "saContent": 0.5,
+                        "saCopyright": 0.5,
+                        "saImg": 0.5
+                    }
+                },
+                "squareDistanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "sqContent": 0.5,
+                        "sqImg": 0.5,
+                        "sqCopyright": 0.5
+                    }
+                },
+                "distanceFrom": {
+                    "value": 0,
+                    "weights": {
+                        "dfContent": 0.5,
+                        "dfCopyright": 0.5,
+                        "dfImg": 0.5
+                    }
+                },
+                "titleCasePercent": {
+                    "value": 0,
+                    "weights": {
+                        "titleCasePercent": 0.5
+                    }
+                }
             },
-            "matchesNameList": 0.5
-        },
-        "title": {
-            "tags": {
-                "h1": 0.5,
-                "h2": 0.5,
-                "h3": 0.5,
-                "h4": 0.5,
-                "h5": 0.5,
-                "h6": 0.5,
-                "p": 0.5,
-                "span": 0.5
-            },
-            "sharedAncestors": {
-                "saContent": 0.5,
-                "saCopyright": 0.5,
-                "saImg": 0.5
-            },
-            "squareDistanceFrom": {
-                "sqContent": 0.5,
-                "sqImg": 0.5
-            },
-            "distanceFrom": {
-                "dfContent": 0.5,
-                "dfCopyright": 0.5,
-                "dfImg": 0.5
-            },
-            "titleCasePercent": 0.5
-        },
-        "date": {
-            "tags": {
-                "h1": 0.5,
-                "h2": 0.5,
-                "h3": 0.5,
-                "h4": 0.5,
-                "h5": 0.5,
-                "h6": 0.5,
-                "p": 0.5,
-                "span": 0.5
-            },
-            "sharedAncestors": {
-                "saContent": 0.5,
-                "saImg": 0.5
-            },
-            "squareDistanceFrom": {
-                "sqContent": 0.5,
-                "sqImg": 0.5
-            },
-            "distanceFrom": {
-                "dfContent": 0.5,
-                "dfImg": 0.5
-            },
-            "matchesDateTimeRegex": 0.5
-        },
-        "company": {
-            "tags": {
-                "h1": 0.5,
-                "h2": 0.5,
-                "h3": 0.5,
-                "h4": 0.5,
-                "h5": 0.5,
-                "h6": 0.5,
-                "p": 0.5,
-                "span": 0.5
-            },
-            "sharedAncestors": {
-                "saContent": 0.5,
-                "saCopyright": 0.5,
-                "saImg": 0.5
-            },
-            "squareDistanceFrom": {
-                "sqContent": 0.5,
-                "sqImg": 0.5,
-                "sqCopyright": 0.5
-            },
-            "distanceFrom": {
-                "dfContent": 0.5,
-                "dfCopyright": 0.5,
-                "dfImg": 0.5
-            },
-            "titleCasePercent": 0.5
-        }
+            {
+                "output": {
+                    "value": 0,
+                    "weights": {
+                        "tags": 0.5,
+                        "sharedAncestors": 0.5,
+                        "squareDistanceFrom": 0.5,
+                        "distanceFrom": 0.5,
+                        "titleCasePercent": 0.5
+                    }
+                }
+            }
+        ]
     },
     "minContentWords": 25
 }
