@@ -2,109 +2,109 @@
     "weights": {
         "author": {
             "tags": {
-                "h1": 1.0,
-                "h2": 1.0,
-                "h3": 1.0,
-                "h4": 1.0,
-                "h5": 1.0,
-                "h6": 1.0,
-                "p": 1.0,
-                "span": 1.0
+                "h1": 0.5,
+                "h2": 0.5,
+                "h3": 0.5,
+                "h4": 0.5,
+                "h5": 0.5,
+                "h6": 0.5,
+                "p": 0.5,
+                "span": 0.5
             },
             "sharedAncestors": {
-                "saContent": 1.0,
-                "saCopyright": 1.0,
-                "saImg": 1.0
+                "saContent": 0.5,
+                "saCopyright": 0.5,
+                "saImg": 0.5
             },
             "squareDistanceFrom": {
-                "sqContent": 1.0,
-                "sqImg": 1.0
+                "sqContent": 0.5,
+                "sqImg": 0.5
             },
             "distanceFrom": {
-                "dfContent": 1.0,
-                "dfImg": 1.0
+                "dfContent": 0.5,
+                "dfImg": 0.5
             },
-            "matchesNameList": 1.0
+            "matchesNameList": 0.5
         },
         "title": {
             "tags": {
-                "h1": 1.0,
-                "h2": 1.0,
-                "h3": 1.0,
-                "h4": 1.0,
-                "h5": 1.0,
-                "h6": 1.0,
-                "p": 1.0,
-                "span": 1.0
+                "h1": 0.5,
+                "h2": 0.5,
+                "h3": 0.5,
+                "h4": 0.5,
+                "h5": 0.5,
+                "h6": 0.5,
+                "p": 0.5,
+                "span": 0.5
             },
             "sharedAncestors": {
-                "saContent": 1.0,
-                "saCopyright": 1.0,
-                "saImg": 1.0
+                "saContent": 0.5,
+                "saCopyright": 0.5,
+                "saImg": 0.5
             },
             "squareDistanceFrom": {
-                "sqContent": 1.0,
-                "sqImg": 1.0
+                "sqContent": 0.5,
+                "sqImg": 0.5
             },
             "distanceFrom": {
-                "dfContent": 1.0,
-                "dfCopyright": 1.0,
-                "dfImg": 1.0
+                "dfContent": 0.5,
+                "dfCopyright": 0.5,
+                "dfImg": 0.5
             },
-            "titleCasePercent": 1.0
+            "titleCasePercent": 0.5
         },
         "date": {
             "tags": {
-                "h1": 1.0,
-                "h2": 1.0,
-                "h3": 1.0,
-                "h4": 1.0,
-                "h5": 1.0,
-                "h6": 1.0,
-                "p": 1.0,
-                "span": 1.0
+                "h1": 0.5,
+                "h2": 0.5,
+                "h3": 0.5,
+                "h4": 0.5,
+                "h5": 0.5,
+                "h6": 0.5,
+                "p": 0.5,
+                "span": 0.5
             },
             "sharedAncestors": {
-                "saContent": 1.0,
-                "saImg": 1.0
+                "saContent": 0.5,
+                "saImg": 0.5
             },
             "squareDistanceFrom": {
-                "sqContent": 1.0,
-                "sqImg": 1.0
+                "sqContent": 0.5,
+                "sqImg": 0.5
             },
             "distanceFrom": {
-                "dfContent": 1.0,
-                "dfImg": 1.0
+                "dfContent": 0.5,
+                "dfImg": 0.5
             },
-            "matchesDateTimeRegex": 1.0
+            "matchesDateTimeRegex": 0.5
         },
         "company": {
             "tags": {
-                "h1": 1.0,
-                "h2": 1.0,
-                "h3": 1.0,
-                "h4": 1.0,
-                "h5": 1.0,
-                "h6": 1.0,
-                "p": 1.0,
-                "span": 1.0
+                "h1": 0.5,
+                "h2": 0.5,
+                "h3": 0.5,
+                "h4": 0.5,
+                "h5": 0.5,
+                "h6": 0.5,
+                "p": 0.5,
+                "span": 0.5
             },
             "sharedAncestors": {
-                "saContent": 1.0,
-                "saCopyright": 1.0,
-                "saImg": 1.0
+                "saContent": 0.5,
+                "saCopyright": 0.5,
+                "saImg": 0.5
             },
             "squareDistanceFrom": {
-                "sqContent": 1.0,
-                "sqImg": 1.0,
-                "sqCopyright": 1.0
+                "sqContent": 0.5,
+                "sqImg": 0.5,
+                "sqCopyright": 0.5
             },
             "distanceFrom": {
-                "dfContent": 1.0,
-                "dfCopyright": 1.0,
-                "dfImg": 1.0
+                "dfContent": 0.5,
+                "dfCopyright": 0.5,
+                "dfImg": 0.5
             },
-            "titleCasePercent": 1.0
+            "titleCasePercent": 0.5
         }
     },
     "minContentWords": 25

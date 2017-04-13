@@ -1,2 +1,8 @@
 var fs = require('fs');
-module.exports = JSON.parse(fs.readFileSync('config.json').toString());
+var config = JSON.parse(fs.readFileSync('config.json').toString());
+module.exports = {
+    'cfg': config, 
+    'updateConfig': function(nns){
+
+    }
+}

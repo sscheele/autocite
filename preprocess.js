@@ -1,5 +1,5 @@
 var badTags = ['head', 'link', 'script', 'nav', 'form'];
-var config = require('./config.js');
+var config = require('./config.js').cfg;
 
 //trim irrelevant tags (the ones in badTags) and add content variables
 function preprocessHelper(doc) {
@@ -80,9 +80,9 @@ function getDistances(nn) {
     var familyTree = {content: {}, copyright: {}, img: {}};
     for (var i = 0; i < nn.length; i++) {
         nn[i].distance = {
-            content: nn[i].isContent ? 0 : -1,
-            img: nn[i].type == "img" ? 0 : -1,
-            copyright: nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©' ? 0 : -1,
+            content: nn[i].isContent ? 0 : undefined,
+            img: nn[i].type == "img" ? 0 : undefined,
+            copyright: nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©' ? 0 : undefined
         };
         if (nn[i].isContent){
             for (var ancestor in nn[i].ancestry){

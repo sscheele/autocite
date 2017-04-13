@@ -1,5 +1,6 @@
-var config = require('./config.js');
+var config = require('./config.js').cfg;
 var nameTest = require('./name-test.js');
+var alpha = .1;
 
 function sig(x) {
     return (1.0 / (1.0 + Math.exp(-1.0 * x)));
@@ -12,9 +13,9 @@ function sigPrime(x) {
 }
 
 function genNN(target) {
-    var retVal = [{}, {}, { output: { value: 0, weights: {} } }];
+    var retVal = [{}, {}, { output: { weights: {} } }];
     for (var feature in target) {
-        tmp = { value: 0, weights: {} };
+        tmp = { weights: {} };
         if (typeof target[feature] == 'object') {
             for (var subFeature in target[feature]) {
                 tmp.weights[subFeature] = target[feature][subFeature];
@@ -25,6 +26,35 @@ function genNN(target) {
         retVal[1][feature] = tmp;
     }
     return retVal;
+}
+
+function predict(nn, input){
+    nn[0] = input;
+    for (var i = 1; i < nn.length; i++){
+        for (var neuron in nn[i]){
+            var sum = 0;
+            for (var feature in nn[i][neuron].weights){
+                var v = nn[i-1][feature].value;
+                if (v) sum += nn[i][neuron].weights[feature] * v;
+            }
+            nn[i][neuron].value = sig(sum);
+            nn[i][neuron]._sum = sum;
+        }
+    }
+    return nn[nn.length - 1].output.value;
+}
+
+function propagateBack(nn, correct){
+    for (var i = 1; i < nn.length; i++){
+        for (var neuron in nn[i]){
+            var est = nn[i][neuron].value;
+            var inc = nn[i][neuron]._sum;
+            for (var feature in nn[i][neuron].weights){
+                nn[i][neuron].weights[feature] += (correct - est) * alpha * sigPrime(inc)
+            }
+            delete nn[i][neuron]._sum;
+        }
+    }
 }
 
 function genInputNodes(wordArr) {
@@ -57,14 +87,14 @@ function genInputNodes(wordArr) {
     }
     //check this shit out, a 20-line return statement
     return {
-        h1: {value: tag == 'h1' ? 1 : -1},
-        h2: {value: tag == 'h2' ? 1 : -1},
-        h3: {value: tag == 'h3' ? 1 : -1},
-        h4: {value: tag == 'h4' ? 1 : -1},
-        h5: {value: tag == 'h5' ? 1 : -1},
-        h6: {value: tag == 'h6' ? 1 : -1},
-        span: {value: tag == 'span' ? 1 : -1},
-        p: {value: tag == 'p' ? 1 : -1},
+        h1: {value: tag == 'h1' ? 1 : 0},
+        h2: {value: tag == 'h2' ? 1 : 0},
+        h3: {value: tag == 'h3' ? 1 : 0},
+        h4: {value: tag == 'h4' ? 1 : 0},
+        h5: {value: tag == 'h5' ? 1 : 0},
+        h6: {value: tag == 'h6' ? 1 : 0},
+        span: {value: tag == 'span' ? 1 : 0},
+        p: {value: tag == 'p' ? 1 : 0},
         saContent: {value: word.saContent},
         saCopyright: {value: word.saCopyright},
         saImg: {value: word.saImg},
@@ -81,12 +111,14 @@ function genInputNodes(wordArr) {
 }
 
 module.exports = {
-    genAllNNs: function () {
+    "genAllNNs": function () {
         var retVal = {};
         for (var target in config.weights) {
             retVal[target] = genNN(config.weights[target]);
         }
         return retVal;
     },
-    genInputNodes: genInputNodes
+    "genInputNodes": genInputNodes,
+    "predict": predict,
+    "propagateBack": propagateBack
 };
