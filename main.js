@@ -66,7 +66,7 @@ function generateCandidates(wordInfo) {
                     var inNode = nnlib.genInputNodes(candidates[candidate].words);
                     var prob = nnlib.predict(config.cfg.nns.title, inNode);
                     if (candidates[candidate].raw == "This is a motherfucking website.") nnlib.propagateBack(config.cfg.nns.title, 1);
-                    else nnlib.propagateBack(config.cfg.nns.title, 0);
+                    else if (Math.random() < .2) nnlib.propagateBack(config.cfg.nns.title, 0);
                 }
             }
 

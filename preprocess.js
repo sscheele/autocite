@@ -77,38 +77,38 @@ function genWordObjects(root) {
 
 //getDistances will get the distance to content, copyright elements, etc and shared ancestry
 function getDistances(nn) {
-    var familyTree = {content: {}, copyright: {}, img: {}};
+    var familyTree = { content: {}, copyright: {}, img: {} };
     for (var i = 0; i < nn.length; i++) {
         nn[i].distance = {
             content: nn[i].isContent ? 0 : undefined,
             img: nn[i].type == "img" ? 0 : undefined,
             copyright: nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©' ? 0 : undefined
         };
-        if (nn[i].isContent){
-            for (var ancestor in nn[i].ancestry){
+        if (nn[i].isContent) {
+            for (var ancestor in nn[i].ancestry) {
                 familyTree.content[ancestor] = true;
             }
         }
-        if (nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©'){
-            for (var ancestor in nn[i].ancestry){
+        if (nn[i].value.toLowerCase() == 'copyright' || nn[i].value == '©') {
+            for (var ancestor in nn[i].ancestry) {
                 familyTree.copyright[ancestor] = true;
             }
         }
-        if (nn.type == "img"){
-            for (var ancestor in nn[i].ancestry){
+        if (nn.type == "img") {
+            for (var ancestor in nn[i].ancestry) {
                 familyTree.img[ancestor] = true;
             }
         }
     }
 
     var setDistanceForward = function (tag, net, i) {
-        for (var j = 1; i + j < net.length && (net[i + j].distance[tag] == -1 || net[i + j].distance[tag] > j); j++) {
+        for (var j = 1; i + j < net.length && (!net[i + j].distance[tag] || net[i + j].distance[tag] > j); j++) {
             net[i + j].distance[tag] = j;
         }
     }
 
     var setDistanceBack = function (tag, net, i) {
-        for (var j = 1; j <= i && (net[i + j].distance[tag] == -1 || net[i - j].distance[tag] > j); j++) {
+        for (var j = 1; j <= i && (!net[i + j].distance[tag] || net[i - j].distance[tag] > j); j++) {
             net[i - j].distance[tag] = j;
         }
     }
@@ -148,8 +148,8 @@ function getDistances(nn) {
         if (!nn[i].isContent) {
             var j = 1;
             var lim = nn[i].ancestry.length;
-            for (; lim > j; j++){
-                if (familyTree.content[nn[i].ancestry[lim-j]]) break;
+            for (; lim > j; j++) {
+                if (familyTree.content[nn[i].ancestry[lim - j]]) break;
             }
             nn[i].saContent = j;
         }
@@ -157,8 +157,8 @@ function getDistances(nn) {
         if (nn[i].value.toLowerCase() != 'copyright' && nn[i].value != '©') {
             var j = 1;
             var lim = nn[i].ancestry.length;
-            for (; lim > j; j++){
-                if (familyTree.copyright[nn[i].ancestry[lim-j]]) break;
+            for (; lim > j; j++) {
+                if (familyTree.copyright[nn[i].ancestry[lim - j]]) break;
             }
             nn[i].saCopyright = j;
         }
@@ -166,12 +166,11 @@ function getDistances(nn) {
         if (nn[i].type != 'img') {
             var j = 1;
             var lim = nn[i].ancestry.length;
-            for (; lim > j; j++){
-                if (familyTree.img[nn[i].ancestry[lim-j]]) break;
+            for (; lim > j; j++) {
+                if (familyTree.img[nn[i].ancestry[lim - j]]) break;
             }
             nn[i].saImg = j;
         }
-        
     }
 }
 

@@ -27,7 +27,7 @@
                 "squareDistanceFrom": {
                     "value": 0,
                     "weights": {
-                        "sqContent": 0.5,
+                        "sqContent": -0.001,
                         "sqImg": 0.5
                     }
                 },
@@ -84,7 +84,7 @@
                 "squareDistanceFrom": {
                     "value": 0,
                     "weights": {
-                        "sqContent": 0.5,
+                        "sqContent": -0.001,
                         "sqImg": 0.5
                     }
                 },
@@ -141,7 +141,7 @@
                 "squareDistanceFrom": {
                     "value": 0,
                     "weights": {
-                        "sqContent": 0.5,
+                        "sqContent": -0.001,
                         "sqImg": 0.5
                     }
                 },
@@ -193,7 +193,7 @@
                 "squareDistanceFrom": {
                     "value": 0,
                     "weights": {
-                        "sqContent": 0.5,
+                        "sqContent": -0.001,
                         "sqImg": 0.5,
                         "sqCopyright": 0.5
                     }
