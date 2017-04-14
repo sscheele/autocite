@@ -11,7 +11,7 @@ function generateCandidates(wordInfo) {
         var word = wordInfo[wordIndex];
         if (word.isContent) continue; //ignore content
         var lastTag = word.ancestry.length == 0 ? '#text' : word.ancestry[word.ancestry.length - 1];
-        if (!tagWords[lastTag]) tagWords[lastTag] = {words: [word], probabilities: {}, raw: word.value};
+        if (!tagWords[lastTag]) tagWords[lastTag] = { words: [word], probabilities: {}, raw: word.value };
         else {
             tagWords[lastTag].words.push(word);
             tagWords[lastTag].raw += ' ' + word.value
@@ -48,16 +48,38 @@ function generateCandidates(wordInfo) {
             //console.log(JSON.stringify(wordInfo, null, 2));
             //console.log(JSON.stringify(nns));
             //console.log(JSON.stringify(inputNode, null, 2));
+
             var candidates = generateCandidates(wordInfo);
-            for (var candidate in candidates){
+
+            //show initial values
+            for (var candidate in candidates) {
                 var inNode = nnlib.genInputNodes(candidates[candidate].words);
-                for (nnName in config.cfg.nns){
+                for (nnName in config.cfg.nns) {
                     var prob = nnlib.predict(config.cfg.nns[nnName], inNode);
-                    console.log('[' + nnName + ': ' + prob + '] "' + candidates[candidate].raw);
+                    console.log('[' + nnName + ': ' + prob + '] ' + candidates[candidate].raw);
                 }
             }
-            
-            
+
+            //train the NN to be better at identifying titles
+            for (var i = 0; i < 100; i++) {
+                for (var candidate in candidates) {
+                    var inNode = nnlib.genInputNodes(candidates[candidate].words);
+                    var prob = nnlib.predict(config.cfg.nns.title, inNode);
+                    if (candidates[candidate].raw == "This is a motherfucking website.") nnlib.propagateBack(config.cfg.nns.title, 1);
+                    else nnlib.propagateBack(config.cfg.nns.title, 0);
+                }
+            }
+
+            console.log("****************\nTRAINING COMPLETE\n****************")
+
+            //repeat value show
+            for (var candidate in candidates) {
+                var inNode = nnlib.genInputNodes(candidates[candidate].words);
+                for (var nnName in config.cfg.nns) {
+                    var prob = nnlib.predict(config.cfg.nns[nnName], inNode);
+                    console.log('[' + nnName + ': ' + prob + '] ' + candidates[candidate].raw);
+                }
+            }
         });
     }
 })();

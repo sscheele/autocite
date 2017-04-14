@@ -6,9 +6,9 @@ function sig(x) {
 }
 
 function sigPrime(x) {
-    //deriv = 1/(1 + e^x) + 1/((1+e^x)^2)
+    //deriv = 1/(1 + e^x) - 1/((1+e^x)^2)
     var tmp = 1.0 / (1.0 + Math.exp(x));
-    return tmp + tmp * tmp;
+    return tmp - (tmp * tmp);
 }
 
 function predict(nn, input){
@@ -33,7 +33,7 @@ function propagateBack(nn, correct){
             var est = nn[i][neuron].value;
             var inc = nn[i][neuron]._sum;
             for (var feature in nn[i][neuron].weights){
-                nn[i][neuron].weights[feature] += (correct - est) * alpha * sigPrime(inc)
+                if (nn[i-1][feature].value) nn[i][neuron].weights[feature] += (correct - est) * alpha * sigPrime(inc)
             }
             delete nn[i][neuron]._sum;
         }
@@ -66,18 +66,18 @@ function genInputNodes(wordArr) {
     }
     //sum up the number of words that begin with caps (exclude symbols), divide by number of words, and multiply by 100 (while converting to a float)
     var pctTtitleCase = function(strArr){
-        return (100.0 * strArr.reduce(function(acc, val){if (val.value[0] != val.value[0].toLowerCase()) acc++;}, 0)) / (1.0 * strArr.length);
+        return (100.0 * strArr.reduce(function(acc, val){if (val.value[0] != val.value[0].toLowerCase()){return acc+1;} return acc;}, 0)) / (1.0 * strArr.length);
     }
     //check this shit out, a 20-line return statement
     return {
-        h1: {value: tag == 'h1' ? 1 : 0},
-        h2: {value: tag == 'h2' ? 1 : 0},
-        h3: {value: tag == 'h3' ? 1 : 0},
-        h4: {value: tag == 'h4' ? 1 : 0},
-        h5: {value: tag == 'h5' ? 1 : 0},
-        h6: {value: tag == 'h6' ? 1 : 0},
-        span: {value: tag == 'span' ? 1 : 0},
-        p: {value: tag == 'p' ? 1 : 0},
+        h1: {value: tag == 'h1' ? 1 : undefined},
+        h2: {value: tag == 'h2' ? 1 : undefined},
+        h3: {value: tag == 'h3' ? 1 : undefined},
+        h4: {value: tag == 'h4' ? 1 : undefined},
+        h5: {value: tag == 'h5' ? 1 : undefined},
+        h6: {value: tag == 'h6' ? 1 : undefined},
+        span: {value: tag == 'span' ? 1 : undefined},
+        p: {value: tag == 'p' ? 1 : undefined},
         saContent: {value: word.saContent},
         saCopyright: {value: word.saCopyright},
         saImg: {value: word.saImg},
