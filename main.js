@@ -61,7 +61,7 @@ function generateCandidates(wordInfo) {
             }
 
             //train the NN to be better at identifying titles
-            for (var i = 0; i < 100; i++) {
+            for (var i = 0; i < 100000; i++) {
                 for (var candidate in candidates) {
                     var inNode = nnlib.genInputNodes(candidates[candidate].words);
                     var prob = nnlib.predict(config.cfg.nns.title, inNode);
