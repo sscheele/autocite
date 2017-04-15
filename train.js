@@ -9,7 +9,7 @@ function generateCandidates(wordInfo) {
     var tagWords = {};
     for (var wordIndex in wordInfo) {
         var word = wordInfo[wordIndex];
-        if (word.isContent) continue; //ignore content
+        if (word.isContent && Math.random() < .09) continue; //ignore most content, but leave some so we can effectively train
         var lastTag = word.ancestry.length == 0 ? '#text' : word.ancestry[word.ancestry.length - 1];
         if (!tagWords[lastTag]) tagWords[lastTag] = { words: [word], probabilities: {}, raw: word.value };
         else {
@@ -20,45 +20,50 @@ function generateCandidates(wordInfo) {
     return tagWords;
 }
 
-//PRE: dir, a subdirectory of ./corpus containing articles from the same site
+//PRE: body, the raw html of the webpage
 //ans, an object containing the author, title, date, and company
 //POST: the NN is trained to be a little better than it was
-function trainFromSubCorpus(dir, ans) {
-    fs.readdir(path.join('./corpus', dir), function (err, files) {
-        if (err) {
-            console.error("Could not list the directory.", err);
-            process.exit(1);
-        }
+function trainFromHTML(body, ans) {
+    var doc = parse5.parse(body); // Parse the HTML
+    var wordInfo = getWordInfo(doc);
 
-        files.forEach(function (file, index) {
-            var body = fs.readFileSync(path.join('./corpus/', dir, file))
-            var doc = parse5.parse(body); // Parse the HTML
-            var wordInfo = getWordInfo(doc);
+    var candidates = generateCandidates(wordInfo);
 
-            var candidates = generateCandidates(wordInfo);
-
-            //train the NN to be better at identifying titles
-            for (var i = 0; i < 500; i++) {
-                for (var candidate in candidates) {
-                    var inNode = nnlib.genInputNodes(candidates[candidate].words);
-                    var prob = nnlib.predict(config.cfg.nns.title, inNode);
-                    for (var target in ans) {
-                        if (candidates[candidate].raw == ans[target]) nnlib.propagateBack(config.cfg.nns[target], 1);
-                        else if (Math.random() < .2) {
-                            nnlib.propagateBack(config.cfg.nns[target], 0);
-                        }
-                    }
-                }
+    //train the NN to be better at identifying titles
+    for (var i = 0; i < 5000; i++) {
+        for (var candidate in candidates) {
+            var inNode = nnlib.genInputNodes(candidates[candidate].words);
+            for (var target in ans) {
+                var prob = nnlib.predict(config.cfg.nns[target], inNode);
+                if (candidates[candidate].raw == ans[target]) nnlib.propagateBack(config.cfg.nns[target], 1);
+                else nnlib.propagateBack(config.cfg.nns[target], 0);
             }
+        }
+    }
 
-            console.log("Training complete, writing configuration to file");
-            config.writeConfig();
-        });
-    });
+    console.log("Training complete, writing configuration to file");
+    
 }
 
-//TODO: ADD RANDOM SAMPLES OF CONTENT
-
 (function () {
+    trainFromHTML(fs.readFileSync('./corpus/nytimes/hamid-karzai-afghanistan-us-bombing.html'), {
 
+    });
+    trainFromHTML(fs.readFileSync('./corpus/nytimes/visitor-log-white-house-trump.html'), {
+
+    });
+    trainFromHTML(fs.readFileSync('./corpus/nytimes/north-korea-china-nuclear.html'), {
+
+    });
+    trainFromHTML(fs.readFileSync('./corpus/washpo/even-canadians-are-skipping-trips.html'), {
+
+    });
+    trainFromHTML(fs.readFileSync('./corpus/washpo/north-korea-shows-off-new-missiles.html'), {
+
+    });
+    trainFromHTML(fs.readFileSync('./corpus/wsj/united-pepsi-outcry.html'), {
+
+    });
+    
+    config.writeConfig();
 })();

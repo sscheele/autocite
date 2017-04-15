@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>jQuery with Node.js</title>
+<link rel="stylesheet" type="text/css" href="https://www.hacksparrow.com/wp-content/themes/hacksparrow/style.css"></style>
+<script type="text/javascript" src="https://www.hacksparrow.com/wp-content/themes/hacksparrow/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="https://www.hacksparrow.com/wp-content/themes/hacksparrow/main.js"></script>
+<link rel="shortcut icon" href="https://www.hacksparrow.com/wp-content/themes/hacksparrow/favicon.ico" />
+<link href="https://www.hacksparrow.com/wp-content/themes/hacksparrow/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.hacksparrow.com/wp-content/themes/hacksparrow/prettify/prettify.js"></script>
+
+
+<!-- All in One SEO Pack 2.3.11.4 by Michael Torbert of Semper Fi Web Design[141,212] -->
+<meta name="description"  content="How to use jQuery with Node.js Want to summon the awesome DOM scripting powers of jQuery in Node.js? I have got great news for you - getting jQuery to work" />
+
+<meta name="keywords"  content="jquery,node.js,javascript" />
+
+<link rel="canonical" href="https://www.hacksparrow.com/jquery-with-node-js.html" />
+<!-- /all in one seo pack -->
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Hack Sparrow &raquo; jQuery with Node.js Comments Feed" href="https://www.hacksparrow.com/jquery-with-node-js.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.hacksparrow.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.3"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='antispam-extra.style.plugin-css'  href='https://www.hacksparrow.com/wp-content/plugins/antispam-extra/style.plugin.css?ver=4.7.3' type='text/css' media='all' />
+<script type='text/javascript' src='https://www.hacksparrow.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://www.hacksparrow.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='https://www.hacksparrow.com/wp-content/plugins/antispam-extra/script.js?ver=4.7.3'></script>
+<link rel='https://api.w.org/' href='https://www.hacksparrow.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.hacksparrow.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.hacksparrow.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Neo4j Tutorial &#8211; Introduction to Neo4j' href='https://www.hacksparrow.com/neo4j-tutorial-introduction-to-neo4j.html' />
+<link rel='next' title='Neo4j Tutorial &#8211; REST API' href='https://www.hacksparrow.com/neo4j-tutorial-rest-api.html' />
+
+<link rel='shortlink' href='https://www.hacksparrow.com/?p=603' />
+<link rel="alternate" type="application/json+oembed" href="https://www.hacksparrow.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.hacksparrow.com%2Fjquery-with-node-js.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.hacksparrow.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.hacksparrow.com%2Fjquery-with-node-js.html&#038;format=xml" />
+
+<!-- Bad Behavior 2.2.19 run time: 4.110 ms -->
+<script type="text/javascript">
+<!--
+function bb2_addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			oldonload();
+			func();
+		}
+	}
+}
+
+bb2_addLoadEvent(function() {
+	for ( i=0; i < document.forms.length; i++ ) {
+		if (document.forms[i].method == 'post') {
+			var myElement = document.createElement('input');
+			myElement.setAttribute('type', 'hidden');
+			myElement.name = 'bb2_screener_';
+			myElement.value = '1492261821 71.163.33.22';
+			document.forms[i].appendChild(myElement);
+		}
+	}
+});
+// --></script>
+		<script type="text/javascript"><!--
+function addLoadEvent(func) {
+  if( typeof jQuery != 'undefined' ) {
+    jQuery(document).ready( func );
+  } else if( typeof Prototype != 'undefined' ) {
+    Event.observe( window, 'load', func );
+  } else {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+      window.onload = func;
+    } else {
+      window.onload = function() {
+        if (oldonload)
+          oldonload();
+        
+        func();
+      }
+    }
+  }
+}
+function wphc(){
+	var wphc_data = [1572347258,1354301800,1453727548,1370830719,1252202609,1174356089,514066794,1572739179,1186401603,485905724,266819885,266819885,250042413,249976877,250042412,266754348,266754348,99899693,1287069244,1453727548,1555249023,518735972,1224102700,1240865405,1639252076,514722681,98977825,1472077628,1241386352,1639252076,514722681,1319192608,1535708020,1391988861,1253115513,514670964,1241386613,1639252076,279841145,1287061631,1241390173,1639252076,397282169,518739260,401889598,1240863548,1639252076,514722425,1945523511,280894589,379651948,1240876078,1639252076,397282169,514541607,1572739179,1186270531,518865719,1537493089,1352932712,1453727548,1555249023,514544484,1572739179,1404635971,1537351020,518865204]; 
+
+	for (var i=0; i<wphc_data.length; i++){
+		wphc_data[i]=wphc_data[i]^1054238748;
+	}
+
+	var a = new Array(wphc_data.length); 
+	for (var i=0; i<wphc_data.length; i++) { 
+		a[i] = String.fromCharCode(wphc_data[i] & 0xFF, wphc_data[i]>>>8 & 0xFF, wphc_data[i]>>>16 & 0xFF, wphc_data[i]>>>24 & 0xFF);
+	}
+
+	return eval(a.join('')); 
+}
+addLoadEvent(function(){var el=document.getElementById('wphc_value');if(el)el.value=wphc();});
+//--></script>
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		<!-- Vipers Video Quicktags v6.6.0 | http://www.viper007bond.com/wordpress-plugins/vipers-video-quicktags/ -->
+<style type="text/css">
+.vvqbox { display: block; max-width: 100%; visibility: visible !important; margin: 10px auto; } .vvqbox img { max-width: 100%; height: 100%; } .vvqbox object { max-width: 100%; } 
+</style>
+<script type="text/javascript">
+// <![CDATA[
+	var vvqflashvars = {};
+	var vvqparams = { wmode: "opaque", allowfullscreen: "true", allowscriptaccess: "always" };
+	var vvqattributes = {};
+	var vvqexpressinstall = "https://www.hacksparrow.com/wp-content/plugins/vipers-video-quicktags/resources/expressinstall.swf";
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!--
+<div id="debug"><span></span></div>
+-->
+
+<div id="top-bar">
+
+	<div id="top-bar-left" class="top-bar fl">
+		<a id="logo"  href="https://www.hacksparrow.com" title="Node.js and JavaScript Tutor">
+			<img src="https://www.hacksparrow.com/wp-content/themes/hacksparrow/images/logo.png"/>
+		</a>
+		<ul id="top-menu">
+			<li id="about-menu"></li>
+			<li id="categories-menu"></li>
+			<li id="archive-menu"></li>
+			<li id="contact-menu"></li>
+		</ul>
+	</div>
+	<div id="search-box" class="fl">
+		<form id="search-form" action="/">
+			<input type="text" id="search-input" name="s" value="">
+			<div id="search-submit"></div>
+		</form>
+	</div>
+	<div id="top-bar-right" class="top-bar fl" style="position:relative">
+		<div id="feedburner-link"><a href="//feeds.feedburner.com/hacksparrow" title="Subscribe to my RSS feeds"></a></div>
+		<div id="twitter-link"><a href="//twitter.com/hacksparrow/" title="Follow me on Twitter">@hacksparrow</a></div>
+	</div>
+</div>
+
+<div id="wrapper">
+
+	<div id="top-dialog">
+	<div id="top-dialog-pointer"></div>
+	<span id="top-dialod-html">I am Hack Sparrow<br/>Captain of the Internets.</span>
+	</div>
+
+	<div id="content-column">
+
+		<div id="content-mid">
+
+  
+		<div class="post">
+			<h1 id="post-603"><a href="https://www.hacksparrow.com/jquery-with-node-js.html" rel="bookmark" title="Permanent Link: jQuery with Node.js">jQuery with Node.js</a></h1>
+				<div class="post-meta">
+					<i>Posted on January 16th, 2012 under <a href="https://www.hacksparrow.com/category/javascript" rel="category tag">JavaScript</a>, <a href="https://www.hacksparrow.com/category/node-js-2" rel="category tag">Node.js</a></i><br/>
+					<i>Tags: <a href="https://www.hacksparrow.com/tag/jquery" rel="tag">jQuery</a>, <a href="https://www.hacksparrow.com/tag/node-js" rel="tag">node.js</a></i>
+				</div>
+			<h2>How to use jQuery with Node.js</h2><p></p><p>Want to summon the awesome DOM scripting powers of jQuery in Node.js? I have got great news for you - getting jQuery to work in Node.js as easy as 1, 2, 3. Follow me.</p><p>First of all, we need to install the jQuery Node module:</p><pre class="prettyprint codeblock">$ npm install jquery<br>...<br>jquery@1.6.3 ./node_modules/jquery <br>├── htmlparser@1.7.3<br>└── jsdom@0.2.10<br></pre><p>Notice jsdom and htmlparser? Those are required by jQuery to bring its clientside magic to the serverside. You might come across various articles which uses jsdom and htmlparser for processing DOM in Node.js, you can skip those articles, as long as you want to use jQuery for the purpose.</p><p>Also if you see examples containing var <code>request = require('request')</code>, you might wanna skip those articles too because <code>request</code> is an outdated Node module, and hence the examples outdated too.</p><p>Ok, now let's try an example of DOM parsing in Node.js using jQuery. Save the following code in a file named title.js. We call it title.js because it specializes in retrieving the title from a webpage, in this example the webpage is the jQuery homepage.</p><pre class="prettyprint codeblock">var $ = require('jquery');<br>var http = require('http');<br><br>var options = {<br>    host: 'jquery.com',<br>    port: 80,<br>    path: '/'<br>};<br><br>var html = '';<br>http.get(options, function(res) {<br>    res.on('data', function(data) {<br>        // collect the data chunks to the variable named "html"<br>        html += data;<br>    }).on('end', function() {<br>        // the whole of webpage data has been collected. parsing time!<br>        var title = $(html).find('title').text();<br>        console.log(title);<br>     });<br>});<br></pre><p>Now run title.js:</p><pre class="prettyprint codeblock">$ node title.js <br>--------------- The Title ------------------<br>jQuery: The Write Less, Do More, JavaScript Library<br></pre><p>w00t! Wan't that easy? That's how you get jQuery working in Node.js. Happy DOM scripting!</p>		</div>
+
+
+<div id="interest">
+
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-format="autorelaxed"
+	     data-ad-client="ca-pub-0762366973631369"
+	     data-ad-slot="6496758543"></ins>
+	<script>
+	     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+
+	<div id="similar">
+		<b>Related to this post</b>
+		<ul><li><a href="https://www.hacksparrow.com/mobile-web-development-in-express-js-node-js.html" rel="bookmark" title="February 19, 2012">Mobile Web Development in Express.js (Node.js)</a></li>
+
+<li><a href="https://www.hacksparrow.com/mongodb-pagination-using-skip.html" rel="bookmark" title="November 28, 2011">MongoDB Pagination &#8211; using skip()</a></li>
+
+<li><a href="https://www.hacksparrow.com/python-split-string-method-and-examples.html" rel="bookmark" title="July 29, 2011">Python: split string method and examples</a></li>
+
+<li><a href="https://www.hacksparrow.com/post-get-request-handling-in-node-js-express.html" rel="bookmark" title="March 2, 2012">POST / GET Request Handling in Node.js Express</a></li>
+
+<li><a href="https://www.hacksparrow.com/using-redis-with-node-js.html" rel="bookmark" title="October 11, 2011">Using Redis with Node.js</a></li>
+
+<li><a href="https://www.hacksparrow.com/using-node-js-to-download-files.html" rel="bookmark" title="October 27, 2011">Using Node.js to download files</a></li>
+
+<li><a href="https://www.hacksparrow.com/how-to-write-midddleware-for-connect-express-js.html" rel="bookmark" title="April 16, 2012">How to Write Middleware for Connect / Express.js</a></li>
+
+<li><a href="https://www.hacksparrow.com/disabling-the-context-menu-using-javascript.html" rel="bookmark" title="August 17, 2010">Disabling the Context Menu using JavaScript</a></li>
+
+<li><a href="https://www.hacksparrow.com/using-mysql-with-node-js.html" rel="bookmark" title="October 17, 2011">Using MySQL with Node.js</a></li>
+
+<li><a href="https://www.hacksparrow.com/scripting-a-node-js-app.html" rel="bookmark" title="December 27, 2012">Scripting a Node.js App</a></li>
+</ul><!-- Similar Posts took 16.517 ms -->	</div>
+
+</div>
+
+
+<div id="social">
+		<div style="float:left"><!-- Place this tag in your head or just before your close body tag -->
+	<script type="text/javascript" src="//apis.google.com/js/plusone.js"></script>
+	<!-- Place this tag where you want the +1 button to render -->
+	<g:plusone size="medium"></g:plusone>
+	</div>
+	<div style="width:120px;float:left"><iframe src="https://www.facebook.com/plugins/like.php?href=//www.hacksparrow.com/jquery-with-node-js.html&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=recommend&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
+	<div style="width:90px;float:right"><a href="//twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="hacksparrow">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script></div>
+	<div style="clear:both"></div>
+</div>
+
+
+<div id="comment-section">
+	
+<!-- You can start editing here. -->
+
+	<h3 id="comments">8 Responses to &#8220;jQuery with Node.js&#8221;</h3> 
+
+ <ol class="commentlist">
+  		<li class="comment even thread-even depth-1" id="comment-414">
+				<div id="div-comment-414" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/22c82f59358befc078f9a048690aeb89?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/22c82f59358befc078f9a048690aeb89?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">Søren</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-414">
+			January 20, 2012 at 3:30 am</a>		</div>
+
+		<p>Awesome mini-guide. Was looking for some more up-to-date information about use of jquery with Node.js &#8211; instead of calling jsdom directly.<br />
+Thanks!</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1205">
+				<div id="div-comment-1205" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/10b9c629b36c9c81d691fe70d7a60a51?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/10b9c629b36c9c81d691fe70d7a60a51?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">Nicolás</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-1205">
+			December 13, 2012 at 9:48 am</a>		</div>
+
+		<p>Just a quick comment, currently is not possible to install jquery using &#8220;npm install jquery&#8221; there is a problem building contextify (https://npmjs.org/package/jquery).<br />
+As a workaround you can try jsdom https://github.com/tmpvar/jsdom.<br />
+Hope this helps somebody else time!<br />
+Cheers!<br />
+Nicolás</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-1206">
+				<div id="div-comment-1206" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/10b9c629b36c9c81d691fe70d7a60a51?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/10b9c629b36c9c81d691fe70d7a60a51?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">Nicolás</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-1206">
+			December 13, 2012 at 9:50 am</a>		</div>
+
+		<p>Forgot something! I meant, it&#8217;s not possible to install jquery using npm install jquery in Windows!</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1272">
+				<div id="div-comment-1272" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/10b9c629b36c9c81d691fe70d7a60a51?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/10b9c629b36c9c81d691fe70d7a60a51?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">Nicolás</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-1272">
+			December 17, 2012 at 4:14 am</a>		</div>
+
+		<p>Found out that jsdom depends on contextify as well so it&#8217;s not a good workaround&#8230;.<br />
+I&#8217;m using cheerio + request libs for parsing HTML and it works perfectly fine.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-1340">
+				<div id="div-comment-1340" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/09557675ea02560ac24e7a62922e3f52?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/09557675ea02560ac24e7a62922e3f52?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">Stk</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-1340">
+			December 21, 2012 at 6:41 am</a>		</div>
+
+		<p>This library will not work for window environment. jquery , nodequery or even jsdom&#8230;</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-9302">
+				<div id="div-comment-9302" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/fc085f74de8342bf23228942e1e3ac3e?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/fc085f74de8342bf23228942e1e3ac3e?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">R. Douglas Barbieri</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-9302">
+			March 31, 2014 at 4:59 pm</a>		</div>
+
+		<p>I tried your code above and this is what I get:</p>
+<p>$ node title.js</p>
+<p>/home/www/html/dooglio.net/jquery/node_modules/jquery/dist/jquery.js:29<br />
+					throw new Error( &#8220;jQuery requires a window with a document&#8221; );<br />
+					      ^<br />
+Error: jQuery requires a window with a document<br />
+    at module.exports (/home/www/html/dooglio.net/jquery/node_modules/jquery/dist/jquery.js:29:12)<br />
+    at IncomingMessage. (/home/www/html/dooglio.net/jquery/title.js:17:21)<br />
+    at IncomingMessage.EventEmitter.emit (events.js:117:20)<br />
+    at _stream_readable.js:910:16<br />
+    at process._tickCallback (node.js:415:13)</p>
+<p>======================<br />
+I&#8217;m running Ubuntu Saucy (13.10). What am I missing here?</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-captain bypostauthor even thread-even depth-1" id="comment-9304">
+				<div id="div-comment-9304" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/ac96905ca7b25f0577e4bcc9c344afb6?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/ac96905ca7b25f0577e4bcc9c344afb6?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">Captain</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-9304">
+			April 3, 2014 at 8:25 pm</a>		</div>
+
+		<p>Use Cheerio for server-side HTML processing: https://github.com/MatthewMueller/cheerio</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-60533">
+				<div id="div-comment-60533" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src='https://secure.gravatar.com/avatar/1ba7bffbe41ca39353b6f8bbfd4624a8?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/1ba7bffbe41ca39353b6f8bbfd4624a8?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' />			<cite class="fn">Marco Faustinelli</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="https://www.hacksparrow.com/jquery-with-node-js.html#comment-60533">
+			September 29, 2014 at 3:56 am</a>		</div>
+
+		<p>This page is alas completely obsolete. Please adjust it along with<br />
+http://stackoverflow.com/questions/21358015/error-jquery-requires-a-window-with-a-document<br />
+or leave at least this comment of mine to warn innocent bystanders.</p>
+
+		
+				</div>
+		</li><!-- #comment-## -->
+ </ol>
+ 
+ <div class="navigation">
+   
+ </div>
+
+ 
+
+
+<h3 id="respond">Make a Comment</h3>
+
+
+<form action="https://www.hacksparrow.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+<label for="author">Your Name</label>
+<input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+</p>
+
+<p>
+<label for="email">Your E-Mail</label>
+<input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </small></p>-->
+
+<p><textarea name="comment" id="comment" cols="90%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+<input type="hidden" name="comment_post_ID" value="603" />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="20ecd02789" /></p><div><input type="hidden" id="wphc_value" name="wphc_value" value=""/></div><noscript><div><small>Wordpress Hashcash needs javascript to work, but your browser has javascript disabled. Your comment will be queued in Akismet!</small></div></noscript><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="43"/></p>
+</form>
+
+
+
+	
+</div>
+</div>
+<!-- /blog content goes here -->
+
+		<div id="navigator">
+					</div>
+	</div>
+
+<ul id="sidebar">
+
+<li class="no-border">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0762366973631369";
+/* HSBIG */
+google_ad_slot = "6478678335";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</li>
+
+<li id="twitter" class="widget widget_Twidget"><a class="twitter-timeline" data-dnt=true href="https://twitter.com/hacksparrow" data-widget-id="264737018905493504"><h2 class="widgettitle"></h2>
+</a>
+		      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li>
+
+<li class="no-border" style="background:#fff">
+<div class="fb-like-box" data-href="https://www.facebook.com/pages/Hack-Sparrow/337334869653076" data-width="328" data-height="360" data-show-faces="true" data-stream="false" data-header="false"></div>
+</li>
+
+</ul>
+
+<div style="clear:both"></div>
+</div>
+
+
+
+<div id="footer">
+	<div id="footer-wrapper">
+
+
+		<div id="bottom-twitter">
+		<a href="//twitter.com/hacksparrow" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @hacksparrow</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+
+
+		<div id="footer-widgets">
+			<ul id="sidebar2">
+<li id="categories-3" class="widget widget_categories"><h2 class="widgettitle">Categories</h2>
+		<ul>
+	<li class="cat-item cat-item-412"><a href="https://www.hacksparrow.com/category/android" >Android</a>
+</li>
+	<li class="cat-item cat-item-209"><a href="https://www.hacksparrow.com/category/database" >Database</a>
+</li>
+	<li class="cat-item cat-item-265"><a href="https://www.hacksparrow.com/category/express-js" >Express.js</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://www.hacksparrow.com/category/general" >General</a>
+</li>
+	<li class="cat-item cat-item-409"><a href="https://www.hacksparrow.com/category/git" >Git</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="https://www.hacksparrow.com/category/javascript" >JavaScript</a>
+</li>
+	<li class="cat-item cat-item-57"><a href="https://www.hacksparrow.com/category/linux" >Linux</a>
+</li>
+	<li class="cat-item cat-item-210"><a href="https://www.hacksparrow.com/category/mongodb" >MongoDB</a>
+</li>
+	<li class="cat-item cat-item-208"><a href="https://www.hacksparrow.com/category/node-js-2" >Node.js</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="https://www.hacksparrow.com/category/python" >Python</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="https://www.hacksparrow.com/category/rants" >Rants</a>
+</li>
+	<li class="cat-item cat-item-413"><a href="https://www.hacksparrow.com/category/react-native" >React Native</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.hacksparrow.com/category/wordpress" >Wordpress</a>
+</li>
+		</ul>
+</li>
+<li id="archives-3" class="widget widget_archive"><h2 class="widgettitle">Archives</h2>
+		<ul>
+			<li><a href='https://www.hacksparrow.com/2016/09'>September 2016</a></li>
+	<li><a href='https://www.hacksparrow.com/2016/04'>April 2016</a></li>
+	<li><a href='https://www.hacksparrow.com/2015/10'>October 2015</a></li>
+	<li><a href='https://www.hacksparrow.com/2014/07'>July 2014</a></li>
+	<li><a href='https://www.hacksparrow.com/2014/05'>May 2014</a></li>
+	<li><a href='https://www.hacksparrow.com/2013/07'>July 2013</a></li>
+	<li><a href='https://www.hacksparrow.com/2013/03'>March 2013</a></li>
+	<li><a href='https://www.hacksparrow.com/2013/02'>February 2013</a></li>
+	<li><a href='https://www.hacksparrow.com/2013/01'>January 2013</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/12'>December 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/11'>November 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/09'>September 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/07'>July 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/06'>June 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/04'>April 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/03'>March 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/02'>February 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2012/01'>January 2012</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/12'>December 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/11'>November 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/10'>October 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/09'>September 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/08'>August 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/07'>July 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/06'>June 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/05'>May 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/04'>April 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/03'>March 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2011/02'>February 2011</a></li>
+	<li><a href='https://www.hacksparrow.com/2010/09'>September 2010</a></li>
+	<li><a href='https://www.hacksparrow.com/2010/08'>August 2010</a></li>
+	<li><a href='https://www.hacksparrow.com/2010/07'>July 2010</a></li>
+	<li><a href='https://www.hacksparrow.com/2010/06'>June 2010</a></li>
+	<li><a href='https://www.hacksparrow.com/2010/05'>May 2010</a></li>
+	<li><a href='https://www.hacksparrow.com/2010/03'>March 2010</a></li>
+	<li><a href='https://www.hacksparrow.com/2010/02'>February 2010</a></li>
+		</ul>
+		</li>
+</ul><div><h2 class="widgettitle">Recent Comments</h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Sam</span> on <a href="https://www.hacksparrow.com/web-speed-is-slow-but-torrent-speed-is-fast.html/comment-page-6#comment-205689">Web speed is slow but Torrent speed is fast &#8211; Solution!</a></li><li class="recentcomments"><span class="comment-author-link">Mayank Dwivedi</span> on <a href="https://www.hacksparrow.com/express-js-tutorial.html/comment-page-13#comment-204510">Express.js Tutorial</a></li><li class="recentcomments"><span class="comment-author-link">blopacid</span> on <a href="https://www.hacksparrow.com/difference-between-spawn-and-exec-of-node-js-child_process.html/comment-page-3#comment-204459">Difference between spawn and exec of Node.js child_process</a></li><li class="recentcomments"><span class="comment-author-link">Ben</span> on <a href="https://www.hacksparrow.com/node-js-compilation-error-on-ubuntu-install-using-apt-get.html/comment-page-1#comment-204285">Node.js compilation error on Ubuntu &#8211; Install using apt-get</a></li><li class="recentcomments"><span class="comment-author-link">Eric Githinji</span> on <a href="https://www.hacksparrow.com/react-native-android-failed-to-find-build-tools-revision-23-0-1.html/comment-page-1#comment-203743">React Native Android: failed to find Build Tools revision 23.0.1</a></li><li class="recentcomments"><span class="comment-author-link">Ahmed</span> on <a href="https://www.hacksparrow.com/post-get-request-handling-in-node-js-express.html/comment-page-2#comment-203691">POST / GET Request Handling in Node.js Express</a></li><li class="recentcomments"><span class="comment-author-link">M V Subhash</span> on <a href="https://www.hacksparrow.com/sessions-in-express-js-node-js-web-framework.html/comment-page-2#comment-203676">Sessions in Express.js (Node.js Web Framework)</a></li><li class="recentcomments"><span class="comment-author-link">Jeevan</span> on <a href="https://www.hacksparrow.com/mongodb-pagination-using-slice.html/comment-page-1#comment-203330">MongoDB Pagination &#8211; using $slice</a></li><li class="recentcomments"><span class="comment-author-link">fraz</span> on <a href="https://www.hacksparrow.com/the-mongodb-tutorial.html/comment-page-3#comment-203279">The MongoDB Tutorial</a></li><li class="recentcomments"><span class="comment-author-link">andrew</span> on <a href="https://www.hacksparrow.com/web-speed-is-slow-but-torrent-speed-is-fast.html/comment-page-6#comment-203133">Web speed is slow but Torrent speed is fast &#8211; Solution!</a></li></ul></div><div><h2 class="widgettitle">Tags</h2><div class="tagcloud"><a href='https://www.hacksparrow.com/tag/apply' class='tag-link-301 tag-link-position-1' title='3 topics' style='font-size: 9.2727272727273pt;'>Apply</a>
+<a href='https://www.hacksparrow.com/tag/aptana' class='tag-link-228 tag-link-position-2' title='2 topics' style='font-size: 8pt;'>Aptana</a>
+<a href='https://www.hacksparrow.com/tag/array' class='tag-link-202 tag-link-position-3' title='6 topics' style='font-size: 11.924242424242pt;'>array</a>
+<a href='https://www.hacksparrow.com/tag/call' class='tag-link-302 tag-link-position-4' title='3 topics' style='font-size: 9.2727272727273pt;'>Call</a>
+<a href='https://www.hacksparrow.com/tag/closure' class='tag-link-45 tag-link-position-5' title='2 topics' style='font-size: 8pt;'>closure</a>
+<a href='https://www.hacksparrow.com/tag/curl' class='tag-link-150 tag-link-position-6' title='3 topics' style='font-size: 9.2727272727273pt;'>CURL</a>
+<a href='https://www.hacksparrow.com/tag/database-2' class='tag-link-216 tag-link-position-7' title='3 topics' style='font-size: 9.2727272727273pt;'>database</a>
+<a href='https://www.hacksparrow.com/tag/error' class='tag-link-256 tag-link-position-8' title='3 topics' style='font-size: 9.2727272727273pt;'>Error</a>
+<a href='https://www.hacksparrow.com/tag/express' class='tag-link-255 tag-link-position-9' title='5 topics' style='font-size: 11.181818181818pt;'>Express</a>
+<a href='https://www.hacksparrow.com/tag/express-js' class='tag-link-404 tag-link-position-10' title='16 topics' style='font-size: 15.954545454545pt;'>Express.js</a>
+<a href='https://www.hacksparrow.com/tag/firefox' class='tag-link-130 tag-link-position-11' title='4 topics' style='font-size: 10.333333333333pt;'>Firefox</a>
+<a href='https://www.hacksparrow.com/tag/git' class='tag-link-243 tag-link-position-12' title='4 topics' style='font-size: 10.333333333333pt;'>git</a>
+<a href='https://www.hacksparrow.com/tag/github' class='tag-link-259 tag-link-position-13' title='4 topics' style='font-size: 10.333333333333pt;'>GitHub</a>
+<a href='https://www.hacksparrow.com/tag/google' class='tag-link-129 tag-link-position-14' title='4 topics' style='font-size: 10.333333333333pt;'>Google</a>
+<a href='https://www.hacksparrow.com/tag/gzip' class='tag-link-117 tag-link-position-15' title='2 topics' style='font-size: 8pt;'>Gzip</a>
+<a href='https://www.hacksparrow.com/tag/homebrew' class='tag-link-231 tag-link-position-16' title='2 topics' style='font-size: 8pt;'>Homebrew</a>
+<a href='https://www.hacksparrow.com/tag/html' class='tag-link-13 tag-link-position-17' title='3 topics' style='font-size: 9.2727272727273pt;'>HTML</a>
+<a href='https://www.hacksparrow.com/tag/http' class='tag-link-245 tag-link-position-18' title='3 topics' style='font-size: 9.2727272727273pt;'>HTTP</a>
+<a href='https://www.hacksparrow.com/tag/https' class='tag-link-341 tag-link-position-19' title='3 topics' style='font-size: 9.2727272727273pt;'>HTTPS</a>
+<a href='https://www.hacksparrow.com/tag/javascript' class='tag-link-399 tag-link-position-20' title='25 topics' style='font-size: 17.863636363636pt;'>JavaScript</a>
+<a href='https://www.hacksparrow.com/tag/javascript-array' class='tag-link-33 tag-link-position-21' title='3 topics' style='font-size: 9.2727272727273pt;'>javascript array</a>
+<a href='https://www.hacksparrow.com/tag/javascript-for-loop' class='tag-link-20 tag-link-position-22' title='2 topics' style='font-size: 8pt;'>javascript for loop</a>
+<a href='https://www.hacksparrow.com/tag/linux' class='tag-link-402 tag-link-position-23' title='10 topics' style='font-size: 13.939393939394pt;'>Linux</a>
+<a href='https://www.hacksparrow.com/tag/list' class='tag-link-200 tag-link-position-24' title='3 topics' style='font-size: 9.2727272727273pt;'>list</a>
+<a href='https://www.hacksparrow.com/tag/lol' class='tag-link-102 tag-link-position-25' title='2 topics' style='font-size: 8pt;'>lol</a>
+<a href='https://www.hacksparrow.com/tag/mac' class='tag-link-182 tag-link-position-26' title='8 topics' style='font-size: 12.984848484848pt;'>Mac</a>
+<a href='https://www.hacksparrow.com/tag/microsoft' class='tag-link-136 tag-link-position-27' title='4 topics' style='font-size: 10.333333333333pt;'>Microsoft</a>
+<a href='https://www.hacksparrow.com/tag/mongodb' class='tag-link-403 tag-link-position-28' title='12 topics' style='font-size: 14.681818181818pt;'>MongoDB</a>
+<a href='https://www.hacksparrow.com/tag/mozilla' class='tag-link-126 tag-link-position-29' title='6 topics' style='font-size: 11.924242424242pt;'>Mozilla</a>
+<a href='https://www.hacksparrow.com/tag/mysql' class='tag-link-8 tag-link-position-30' title='6 topics' style='font-size: 11.924242424242pt;'>MySQL</a>
+<a href='https://www.hacksparrow.com/tag/mysqldump' class='tag-link-55 tag-link-position-31' title='2 topics' style='font-size: 8pt;'>mysqldump</a>
+<a href='https://www.hacksparrow.com/tag/node-js' class='tag-link-205 tag-link-position-32' title='62 topics' style='font-size: 22pt;'>node.js</a>
+<a href='https://www.hacksparrow.com/tag/nosql' class='tag-link-222 tag-link-position-33' title='3 topics' style='font-size: 9.2727272727273pt;'>NoSQL</a>
+<a href='https://www.hacksparrow.com/tag/npm' class='tag-link-207 tag-link-position-34' title='4 topics' style='font-size: 10.333333333333pt;'>npm</a>
+<a href='https://www.hacksparrow.com/tag/object' class='tag-link-232 tag-link-position-35' title='5 topics' style='font-size: 11.181818181818pt;'>Object</a>
+<a href='https://www.hacksparrow.com/tag/pagination' class='tag-link-268 tag-link-position-36' title='3 topics' style='font-size: 9.2727272727273pt;'>pagination</a>
+<a href='https://www.hacksparrow.com/tag/php' class='tag-link-7 tag-link-position-37' title='11 topics' style='font-size: 14.363636363636pt;'>PHP</a>
+<a href='https://www.hacksparrow.com/tag/python' class='tag-link-400 tag-link-position-38' title='7 topics' style='font-size: 12.454545454545pt;'>Python</a>
+<a href='https://www.hacksparrow.com/tag/redis' class='tag-link-221 tag-link-position-39' title='4 topics' style='font-size: 10.333333333333pt;'>Redis</a>
+<a href='https://www.hacksparrow.com/tag/regex' class='tag-link-235 tag-link-position-40' title='2 topics' style='font-size: 8pt;'>Regex</a>
+<a href='https://www.hacksparrow.com/tag/sitemap' class='tag-link-115 tag-link-position-41' title='2 topics' style='font-size: 8pt;'>Sitemap</a>
+<a href='https://www.hacksparrow.com/tag/string' class='tag-link-197 tag-link-position-42' title='3 topics' style='font-size: 9.2727272727273pt;'>string</a>
+<a href='https://www.hacksparrow.com/tag/tuple' class='tag-link-201 tag-link-position-43' title='3 topics' style='font-size: 9.2727272727273pt;'>tuple</a>
+<a href='https://www.hacksparrow.com/tag/ubuntu' class='tag-link-212 tag-link-position-44' title='5 topics' style='font-size: 11.181818181818pt;'>Ubuntu</a>
+<a href='https://www.hacksparrow.com/tag/wordpress' class='tag-link-398 tag-link-position-45' title='5 topics' style='font-size: 11.181818181818pt;'>Wordpress</a></div>
+</div>
+			<p style="clear:both"></p>
+
+		</div>
+
+		<div id="footer-copyright">
+			Copyright &copy; 2017 <a rel="author" href="//plus.google.com/103752924219473791252" target="_blank" title="Google +">Hage Yaapa</a>
+		</div>
+
+
+
+
+	</div>
+</div>
+
+<script type='text/javascript' src='https://www.hacksparrow.com/wp-content/plugins/akismet/_inc/form.js?ver=3.2'></script>
+<script type='text/javascript' src='https://www.hacksparrow.com/wp-includes/js/wp-embed.min.js?ver=4.7.3'></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28435166-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
