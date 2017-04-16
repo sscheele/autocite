@@ -46,22 +46,24 @@ function trainFromHTML(body, ans) {
 }
 
 (function () {
-    trainFromHTML(fs.readFileSync('./corpus/nytimes/hamid-karzai-afghanistan-us-bombing.html'), {
+    trainFromHTML(fs.readFileSync('./corpus/nytimes/hamid-karzai-afghanistan-us-bombing.html').toString(), {
+        title: "Afghan Ex-President Denounces Bombing and Says He Wants U.S. Out",
+        author: "MUJIB MASHAL"
 
     });
-    trainFromHTML(fs.readFileSync('./corpus/nytimes/visitor-log-white-house-trump.html'), {
+    trainFromHTML(fs.readFileSync('./corpus/nytimes/visitor-log-white-house-trump.html').toString(), {
 
     });
-    trainFromHTML(fs.readFileSync('./corpus/nytimes/north-korea-china-nuclear.html'), {
+    trainFromHTML(fs.readFileSync('./corpus/nytimes/north-korea-china-nuclear.html').toString(), {
 
     });
-    trainFromHTML(fs.readFileSync('./corpus/washpo/even-canadians-are-skipping-trips.html'), {
+    trainFromHTML(fs.readFileSync('./corpus/washpo/even-canadians-are-skipping-trips.html').toString(), {
 
     });
-    trainFromHTML(fs.readFileSync('./corpus/washpo/north-korea-shows-off-new-missiles.html'), {
+    trainFromHTML(fs.readFileSync('./corpus/washpo/north-korea-shows-off-new-missiles.html').toString(), {
 
     });
-    trainFromHTML(fs.readFileSync('./corpus/wsj/united-pepsi-outcry.html'), {
+    trainFromHTML(fs.readFileSync('./corpus/wsj/united-pepsi-outcry.html').toString(), {
 
     });
     

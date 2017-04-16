@@ -7,6 +7,13 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Train Program",
+            "program": "${workspaceRoot}/train.js",
+            "args": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}/main.js",
             "args": ["${workspaceRoot}/urls.txt"]

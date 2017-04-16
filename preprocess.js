@@ -59,12 +59,12 @@ function genWordObjects(root) {
             if (doc.childNodes[i].nodeName == '#text' || doc.childNodes[i].nodeName == 'img') {
                 if (doc.childNodes[i].value) {
                     var words = doc.childNodes[i].value.split(' ');
-                    for (var i = 0; i < words.length; i++) {
-                        if (/^[^a-zA-Z0-9]*$/.test(words[i])) continue;
-                        retVal.push({ type: "word", value: words[i], ancestry: ancestors, isContent: doc.isContent });
+                    for (var j = 0; j < words.length; j++) {
+                        if (/^[^a-zA-Z0-9]*$/.test(words[j])) continue;
+                        retVal.push({ type: "word", value: words[j], ancestry: ancestors, isContent: doc.isContent });
                     }
                 } else {
-                    retVal.push({ type: "img", ancestry: ancestors });
+                    retVal.push({ type: "img", ancestry: ancestors, value: '' });
                 }
                 continue;
             }
