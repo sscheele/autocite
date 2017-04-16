@@ -68,7 +68,7 @@ function genInputNodes(wordArr) {
     }
     //sum up the number of words that begin with caps (exclude symbols), divide by number of words, and multiply by 100 (while converting to a float)
     var pctTtitleCase = function (strArr) {
-        return (100.0 * strArr.reduce(function (acc, val) { if (val.value[0] != val.value[0].toLowerCase()) { return acc + 1; } return acc; }, 0)) / (1.0 * strArr.length);
+        return (100.0 * strArr.reduce(function (acc, val) { if (val.length > 0 && val.value[0] != val.value[0].toLowerCase()) { return acc + 1; } return acc; }, 0)) / (1.0 * strArr.length);
     }
     //check this shit out, a 20-line return statement
     return {

@@ -108,7 +108,7 @@ function getDistances(nn) {
     }
 
     var setDistanceBack = function (tag, net, i) {
-        for (var j = 1; j <= i && (!net[i + j].distance[tag] || net[i - j].distance[tag] > j); j++) {
+        for (var j = 1; j <= i && (!net[i - j].distance[tag] || net[i - j].distance[tag] > j); j++) {
             net[i - j].distance[tag] = j;
         }
     }

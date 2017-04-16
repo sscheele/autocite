@@ -29,43 +29,86 @@ function trainFromHTML(body, ans) {
 
     var candidates = generateCandidates(wordInfo);
 
-    //train the NN to be better at identifying titles
+    //train the NN to be better at identifying each feature
     for (var i = 0; i < 5000; i++) {
         for (var candidate in candidates) {
             var inNode = nnlib.genInputNodes(candidates[candidate].words);
             for (var target in ans) {
                 var prob = nnlib.predict(config.cfg.nns[target], inNode);
-                if (candidates[candidate].raw == ans[target]) nnlib.propagateBack(config.cfg.nns[target], 1);
+                if (ans[target].indexOf(candidates[candidate].raw) != -1) nnlib.propagateBack(config.cfg.nns[target], 1);
                 else nnlib.propagateBack(config.cfg.nns[target], 0);
-            }
+            }   
         }
     }
+}
 
-    console.log("Training complete, writing configuration to file");
-    
+//PRE: body, the raw HTML of the webpage
+//POST: an object containing the top 3 most likely candidates for author, title, date, and company
+function predictFromHTML(body) {
+    var retVal = {author: [], title: [], date: [], company: []};
+
+    var doc = parse5.parse(body); // Parse the HTML
+    var wordInfo = getWordInfo(doc);
+    var candidates = generateCandidates(wordInfo);
+
+    for (var candidate in candidates) {
+        var inNode = nnlib.genInputNodes(candidates[candidate].words);
+        for (var target in retVal) {
+            var prob = nnlib.predict(config.cfg.nns[target], inNode);
+            retVal[target].push({val: candidates[candidate].raw, "prob": prob});
+        }
+    }
+    for (var target in retVal){ 
+        retVal[target].sort(function(a,b){return b.prob-a.prob;});
+        retVal[target] = retVal[target].slice(0, 3);
+    }
+    return retVal;
 }
 
 (function () {
+    console.log("**************\nTRAINING (1/6)\n*****************");
     trainFromHTML(fs.readFileSync('./corpus/nytimes/hamid-karzai-afghanistan-us-bombing.html').toString(), {
-        title: "Afghan Ex-President Denounces Bombing and Says He Wants U.S. Out",
-        author: "MUJIB MASHAL"
-
+        title: ["Afghan Ex-President Denounces Bombing and Says He Wants U.S. Out"],
+        author: ["MUJIB MASHAL"],
+        date: ["APRIL 15, 2017"],
+        company: ["The New York Times", "The New York Times Company"]
     });
+    console.log("**************\nTRAINING (2/6)\n*****************");
     trainFromHTML(fs.readFileSync('./corpus/nytimes/visitor-log-white-house-trump.html').toString(), {
-
+        title: ["White House to Keep Its Visitor Logs Secret"],
+        author: ["JULIE HIRSCHFELD DAVIS"],
+        date: ["APRIL 14, 2017"],
+        company: ["The New York Times", "The New York Times Company"]
     });
+    console.log("**************\nTRAINING (3/6)\n*****************");
     trainFromHTML(fs.readFileSync('./corpus/nytimes/north-korea-china-nuclear.html').toString(), {
-
+        title: ["China Warns of ‘Storm Clouds Gathering’ in U.S.-North Korea Standoff"],
+        author: ["GERRY MULLANY", "CHRIS BUCKLEY", "DAVID E. SANGER"],
+        date: ["APRIL 14, 2017"],
+        company: ["The New York Times", "The New York Times Company"]
     });
+    console.log("**************\nTRAINING (4/6)\n*****************");
     trainFromHTML(fs.readFileSync('./corpus/washpo/even-canadians-are-skipping-trips.html').toString(), {
-
+        title: ["Even Canadians are skipping trips to America after Trump travel ban"],
+        author: ["Abha Bhattarai"],
+        date: ["April 14 at 11:58 AM"],
+        company: ["The Washington Post"]
     });
+    console.log("**************\nTRAINING (5/6)\n*****************");
     trainFromHTML(fs.readFileSync('./corpus/washpo/north-korea-shows-off-new-missiles.html').toString(), {
-
+        title: ["North Korea shows off new missiles in huge military parade but doesn’t test nuclear weapon"],
+        author: ["Anna Fifield", "Simon Denyer"],
+        date: ["April 15 at 7:47 AM"],
+        company: ["The Washington Post"]
     });
+    console.log("**************\nTRAINING (6/6)\n*****************");
     trainFromHTML(fs.readFileSync('./corpus/wsj/united-pepsi-outcry.html').toString(), {
-
+        title: ["United, Pepsi Outcry Unlikely to Hurt Financial Results"],
+        author: ["Tatyana Shumsky"],
+        date: ["April 15, 2017 6:00 a.m. ET"],
+        company: ["The Wall Street Journal"]
     });
-    
-    config.writeConfig();
+    console.log("Training complete! Attempting to extract info from BBC test");
+    console.log(JSON.stringify(predictFromHTML(fs.readFileSync('./corpus/washpo/north-korea-shows-off-new-missiles.html').toString()), null, 2));
+    config.writeConfigTo('config.test.json');
 })();
