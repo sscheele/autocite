@@ -43,6 +43,13 @@
                     "weights": {
                         "matchesNameList": 0.5
                     }
+                },
+                "length": {
+                    "value": 0,
+                    "weights": {
+                        "length": -0.5
+                    },
+                    "bias": -3
                 }
             },
             {
@@ -53,7 +60,8 @@
                         "sharedAncestors": 0.5,
                         "squareDistanceFrom": 0.5,
                         "distanceFrom": 0.5,
-                        "matchesNameList": 0.5
+                        "matchesNameList": 0.5,
+                        "length": 0.5
                     }
                 }
             }
@@ -152,7 +160,19 @@
                         "dfImg": 0.5
                     }
                 },
-                "matchesDateTimeRegex": 0.5
+                "matchesDateTimeRegex": {
+                    "value": 0,
+                    "weights": {
+                        "matchesDateTimeRegex": 0.5
+                    }
+                },
+                "length": {
+                    "value": 0,
+                    "weights": {
+                        "length": -0.5
+                    },
+                    "bias": -3
+                }
             },
             {
                 "output": {
@@ -162,7 +182,8 @@
                         "sharedAncestors": 0.5,
                         "squareDistanceFrom": 0.5,
                         "distanceFrom": 0.5,
-                        "matchesDateTimeRegex": 0.5
+                        "matchesDateTimeRegex": 0.5,
+                        "length": 0.5
                     }
                 }
             }
@@ -211,6 +232,13 @@
                     "weights": {
                         "titleCasePercent": 0.5
                     }
+                },
+                "length": {
+                    "value": 0,
+                    "weights": {
+                        "length": -0.5
+                    },
+                    "bias": -4
                 }
             },
             {
@@ -221,7 +249,8 @@
                         "sharedAncestors": 0.5,
                         "squareDistanceFrom": 0.5,
                         "distanceFrom": 0.5,
-                        "titleCasePercent": 0.5
+                        "titleCasePercent": 0.5,
+                        "length": 0.5
                     }
                 }
             }

@@ -18,6 +18,7 @@ function predict(nn, input) {
             var sum = 0;
             for (var feature in nn[i][neuron].weights) {
                 var v = nn[i - 1][feature].value;
+                if (nn[i - 1][feature].bias) v = Math.abs(v + nn[i - 1][feature].bias);
                 if (v) sum += nn[i][neuron].weights[feature] * v;
             }
             nn[i][neuron].value = sig(sum);
@@ -70,6 +71,12 @@ function genInputNodes(wordArr) {
     var pctTtitleCase = function (strArr) {
         return (100.0 * strArr.reduce(function (acc, val) { if (val.length > 0 && val.value[0] != val.value[0].toLowerCase()) { return acc + 1; } return acc; }, 0)) / (1.0 * strArr.length);
     }
+    var countNames = function (acc, val) {
+        if (nameTest.hasFirst(val.value) || nameTest.hasLast(val.value)) {
+            return acc + 1;
+        }
+        return acc;
+    }
     //check this shit out, a 20-line return statement
     return {
         h1: { value: tag == 'h1' ? 1 : undefined },
@@ -91,7 +98,8 @@ function genInputNodes(wordArr) {
         sqCopyright: { value: squareIf(word.distance.copyright) },
         matchesDateTimeRegex: { value: numDateRegex(sentence) },
         titleCasePercent: { value: pctTtitleCase(wordArr) },
-        matchesNameList: { value: wordArr.reduce(function (acc, val) { if (nameTest.hasFirst(val.value) || nameTest.hasLast(val.value)) return acc + 1; return acc; }, 0) }
+        matchesNameList: { value: wordArr.reduce(countNames, 0) },
+        length: { value: wordArr.length }
     };
 }
 

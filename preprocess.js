@@ -1,4 +1,4 @@
-var badTags = ['head', 'link', 'script', 'nav', 'form'];
+var badTags = ['head', 'link', 'script', 'nav', 'form', 'style'];
 var config = require('./config.js').cfg;
 
 //trim irrelevant tags (the ones in badTags) and add content variables
