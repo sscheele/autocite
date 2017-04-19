@@ -37,6 +37,8 @@ function generateCandidates(wordInfo) {
         }
         var url = lines[i];
         request(lines[i], function (error, response, body) {
+            var probs = { author: [], title: [], date: [] };
+
             console.log(url + ':');
             if (error) {
                 console.log('error:', error); // Print the error if one occurred
@@ -56,30 +58,16 @@ function generateCandidates(wordInfo) {
                 var inNode = nnlib.genInputNodes(candidates[candidate].words);
                 for (nnName in config.cfg.nns) {
                     var prob = nnlib.predict(config.cfg.nns[nnName], inNode);
-                    console.log('[' + nnName + ': ' + prob + '] ' + candidates[candidate].raw);
+                    probs[nnName].push({ val: candidates[candidate].raw, "prob": prob });
                 }
             }
 
-            //train the NN to be better at identifying titles
-            for (var i = 0; i < 100000; i++) {
-                for (var candidate in candidates) {
-                    var inNode = nnlib.genInputNodes(candidates[candidate].words);
-                    var prob = nnlib.predict(config.cfg.nns.title, inNode);
-                    if (candidates[candidate].raw == "This is a motherfucking website.") nnlib.propagateBack(config.cfg.nns.title, 1);
-                    else if (Math.random() < .2) nnlib.propagateBack(config.cfg.nns.title, 0);
-                }
+            for (var target in probs) {
+                probs[target].sort(function (a, b) { return b.prob - a.prob; });
+                probs[target] = probs[target].slice(0, 5);
             }
 
-            console.log("****************\nTRAINING COMPLETE\n****************")
-
-            //repeat value show
-            for (var candidate in candidates) {
-                var inNode = nnlib.genInputNodes(candidates[candidate].words);
-                for (var nnName in config.cfg.nns) {
-                    var prob = nnlib.predict(config.cfg.nns[nnName], inNode);
-                    console.log('[' + nnName + ': ' + prob + '] ' + candidates[candidate].raw);
-                }
-            }
+            console.log(JSON.stringify(probs, null, 2));
         });
     }
 })();

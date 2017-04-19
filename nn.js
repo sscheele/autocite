@@ -18,7 +18,7 @@ function predict(nn, input) {
             var sum = 0;
             for (var feature in nn[i][neuron].weights) {
                 var v = nn[i - 1][feature].value;
-                if (nn[i - 1][feature].bias) v = Math.abs(v + nn[i - 1][feature].bias);
+                //if (nn[i - 1][feature].bias) v = Math.abs(v + nn[i - 1][feature].bias);
                 if (v) sum += nn[i][neuron].weights[feature] * v;
             }
             nn[i][neuron].value = sig(sum);
@@ -48,6 +48,12 @@ function genInputNodes(wordArr) {
     var sentence = wordArr.reduce(function (accum, curr) {
         return accum + curr.value + ' ';
     }, '');
+    function hasA(w){
+        for (var i = w.length - 1; i > 0; i++){
+            if (w.ancestry[i].split(' '[0]) == 'a') return true;
+        }
+        return false;
+    }
     var tag = '';
     if (word.ancestry.length > 0) tag = word.ancestry[word.ancestry.length - 1].split(' ')[0];
     var dateRegexes = [
@@ -88,18 +94,18 @@ function genInputNodes(wordArr) {
         span: { value: tag == 'span' ? 1 : undefined },
         p: { value: tag == 'p' ? 1 : undefined },
         saContent: { value: word.saContent },
-        saCopyright: { value: word.saCopyright },
         saImg: { value: word.saImg },
         dfContent: { value: word.distance.content },
         dfImg: { value: word.distance.img },
-        dfCopyright: { value: word.distance.copyright },
+        dfBy: {value: word.distance.by },
+        sqBy: {value: squareIf(word.distance.by) },
         sqContent: { value: squareIf(word.distance.content) },
         sqImg: { value: squareIf(word.distance.img) },
-        sqCopyright: { value: squareIf(word.distance.copyright) },
         matchesDateTimeRegex: { value: numDateRegex(sentence) },
         titleCasePercent: { value: pctTtitleCase(wordArr) },
         matchesNameList: { value: wordArr.reduce(countNames, 0) },
-        length: { value: wordArr.length }
+        length: { value: wordArr.length },
+        descendedFromA: {value: hasA(word) ? 1 : undefined }
     };
 }
 

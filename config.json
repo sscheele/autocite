@@ -1,260 +1,346 @@
 {
-    "nns": {
-        "author": [
-            {},
-            {
-                "tags": {
-                    "weights": {
-                        "h1": 0.5,
-                        "h2": 0.5,
-                        "h3": 0.5,
-                        "h4": 0.5,
-                        "h5": 0.5,
-                        "h6": 0.5,
-                        "p": 0.5,
-                        "span": 0.5
-                    },
-                    "value": 0
-                },
-                "sharedAncestors": {
-                    "value": 0,
-                    "weights": {
-                        "saContent": 0.5,
-                        "saCopyright": 0.5,
-                        "saImg": 0.5
-                    }
-                },
-                "squareDistanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "sqContent": -0.001,
-                        "sqImg": 0.5
-                    }
-                },
-                "distanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "dfContent": 0.5,
-                        "dfImg": 0.5
-                    }
-                },
-                "matchesNameList": {
-                    "value": 0,
-                    "weights": {
-                        "matchesNameList": 0.5
-                    }
-                },
-                "length": {
-                    "value": 0,
-                    "weights": {
-                        "length": -0.5
-                    },
-                    "bias": -3
-                }
-            },
-            {
-                "output": {
-                    "value": 0,
-                    "weights": {
-                        "tags": 0.5,
-                        "sharedAncestors": 0.5,
-                        "squareDistanceFrom": 0.5,
-                        "distanceFrom": 0.5,
-                        "matchesNameList": 0.5,
-                        "length": 0.5
-                    }
-                }
-            }
-        ],
-        "title": [
-            {},
-            {
-                "tags": {
-                    "weights": {
-                        "h1": 0.5,
-                        "h2": 0.5,
-                        "h3": 0.5,
-                        "h4": 0.5,
-                        "h5": 0.5,
-                        "h6": 0.5,
-                        "p": 0.5,
-                        "span": 0.5
-                    }
-                },
-                "sharedAncestors": {
-                    "value": 0,
-                    "weights": {
-                        "saContent": 0.5,
-                        "saCopyright": 0.5,
-                        "saImg": 0.5
-                    }
-                },
-                "squareDistanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "sqContent": -0.001,
-                        "sqImg": 0.5
-                    }
-                },
-                "distanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "dfContent": 0.5,
-                        "dfCopyright": 0.5,
-                        "dfImg": 0.5
-                    }
-                },
-                "titleCasePercent": {
-                    "value": 0,
-                    "weights": {
-                        "titleCasePercent": 0.5
-                    }
-                }
-            },
-            {
-                "output": {
-                    "value": 0,
-                    "weights": {
-                        "tags": 0.5,
-                        "sharedAncestors": 0.5,
-                        "squareDistanceFrom": 0.5,
-                        "distanceFrom": 0.5,
-                        "titleCasePercent": 0.5
-                    }
-                }
-            }
-        ],
-        "date": [
-            {},
-            {
-                "tags": {
-                    "weights": {
-                        "h1": 0.5,
-                        "h2": 0.5,
-                        "h3": 0.5,
-                        "h4": 0.5,
-                        "h5": 0.5,
-                        "h6": 0.5,
-                        "p": 0.5,
-                        "span": 0.5
-                    }
-                },
-                "sharedAncestors": {
-                    "value": 0,
-                    "weights": {
-                        "saContent": 0.5,
-                        "saImg": 0.5
-                    }
-                },
-                "squareDistanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "sqContent": -0.001,
-                        "sqImg": 0.5
-                    }
-                },
-                "distanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "dfContent": 0.5,
-                        "dfImg": 0.5
-                    }
-                },
-                "matchesDateTimeRegex": {
-                    "value": 0,
-                    "weights": {
-                        "matchesDateTimeRegex": 0.5
-                    }
-                },
-                "length": {
-                    "value": 0,
-                    "weights": {
-                        "length": -0.5
-                    },
-                    "bias": -3
-                }
-            },
-            {
-                "output": {
-                    "value": 0,
-                    "weights": {
-                        "tags": 0.5,
-                        "sharedAncestors": 0.5,
-                        "squareDistanceFrom": 0.5,
-                        "distanceFrom": 0.5,
-                        "matchesDateTimeRegex": 0.5,
-                        "length": 0.5
-                    }
-                }
-            }
-        ],
-        "company": [
-            {},
-            {
-                "tags": {
-                    "weights": {
-                        "h1": 0.5,
-                        "h2": 0.5,
-                        "h3": 0.5,
-                        "h4": 0.5,
-                        "h5": 0.5,
-                        "h6": 0.5,
-                        "p": 0.5,
-                        "span": 0.5
-                    }
-                },
-                "sharedAncestors": {
-                    "value": 0,
-                    "weights": {
-                        "saContent": 0.5,
-                        "saCopyright": 0.5,
-                        "saImg": 0.5
-                    }
-                },
-                "squareDistanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "sqContent": -0.001,
-                        "sqImg": 0.5,
-                        "sqCopyright": 0.5
-                    }
-                },
-                "distanceFrom": {
-                    "value": 0,
-                    "weights": {
-                        "dfContent": 0.5,
-                        "dfCopyright": 0.5,
-                        "dfImg": 0.5
-                    }
-                },
-                "titleCasePercent": {
-                    "value": 0,
-                    "weights": {
-                        "titleCasePercent": 0.5
-                    }
-                },
-                "length": {
-                    "value": 0,
-                    "weights": {
-                        "length": -0.5
-                    },
-                    "bias": -4
-                }
-            },
-            {
-                "output": {
-                    "value": 0,
-                    "weights": {
-                        "tags": 0.5,
-                        "sharedAncestors": 0.5,
-                        "squareDistanceFrom": 0.5,
-                        "distanceFrom": 0.5,
-                        "titleCasePercent": 0.5,
-                        "length": 0.5
-                    }
-                }
-            }
-        ]
-    },
-    "minContentWords": 25
+  "nns": {
+    "author": [
+      {
+        "h1": {},
+        "h2": {},
+        "h3": {},
+        "h4": {},
+        "h5": {},
+        "h6": {},
+        "span": {},
+        "p": {},
+        "saContent": {
+          "value": 3
+        },
+        "saImg": {
+          "value": 3
+        },
+        "dfContent": {
+          "value": 31
+        },
+        "dfImg": {
+          "value": 131
+        },
+        "dfBy": {},
+        "sqBy": {},
+        "sqContent": {
+          "value": 961
+        },
+        "sqImg": {
+          "value": 17161
+        },
+        "matchesDateTimeRegex": {
+          "value": 0
+        },
+        "titleCasePercent": {
+          "value": 0
+        },
+        "matchesNameList": {
+          "value": 0
+        },
+        "length": {
+          "value": 5
+        },
+        "descendedFromA": {}
+      },
+      {
+        "tags": {
+          "weights": {
+            "h1": -4.458231468858161,
+            "h2": -5.022869325871193,
+            "h3": -3.824942076826986,
+            "h4": -4.507599064752632,
+            "h5": 0.5,
+            "h6": -3.824942076826986,
+            "p": -5.828618459345046,
+            "span": -5.0936117401369065
+          },
+          "value": 0.5,
+          "_sum": 0
+        },
+        "sharedAncestors": {
+          "value": 0.004162232811146851,
+          "weights": {
+            "saContent": -0.9495522550353976,
+            "saImg": -0.8762919770435704
+          },
+          "_sum": -5.477532696236904
+        },
+        "squareDistanceFrom": {
+          "value": 0,
+          "weights": {
+            "sqContent": -4.343682788989353,
+            "sqBy": 0.09342285879250327
+          },
+          "_sum": -4174.279160218768
+        },
+        "distanceFrom": {
+          "value": 3.0481569752121626e-59,
+          "weights": {
+            "dfContent": -4.346386559648276,
+            "dfBy": -0.8947672365294961
+          },
+          "_sum": -134.73798334909657
+        },
+        "matchesNameList": {
+          "value": 0.5,
+          "weights": {
+            "matchesNameList": -4.90177173521243
+          },
+          "_sum": 0
+        },
+        "length": {
+          "value": 0.00002401150229328025,
+          "weights": {
+            "length": -2.1273907136830403
+          },
+          "bias": -3,
+          "_sum": -10.636953568415201
+        },
+        "descendedFromA": {
+          "value": 0.5,
+          "weights": {
+            "descendedFromA": 0.5
+          },
+          "_sum": 0
+        }
+      },
+      {
+        "output": {
+          "value": 0.0010300974690949816,
+          "weights": {
+            "tags": -1.7715677585007417,
+            "sharedAncestors": -1.7305128052041188,
+            "squareDistanceFrom": -1.352839374827014,
+            "distanceFrom": 0.48436864820959785,
+            "matchesNameList": -4.688466297404694,
+            "length": 17.787371179864223,
+            "descendedFromA": -7.280556998035103
+          },
+          "_sum": -6.877071222644323
+        }
+      }
+    ],
+    "title": [
+      {
+        "h1": {},
+        "h2": {},
+        "h3": {},
+        "h4": {},
+        "h5": {},
+        "h6": {},
+        "span": {},
+        "p": {},
+        "saContent": {
+          "value": 3
+        },
+        "saImg": {
+          "value": 3
+        },
+        "dfContent": {
+          "value": 31
+        },
+        "dfImg": {
+          "value": 131
+        },
+        "dfBy": {},
+        "sqBy": {},
+        "sqContent": {
+          "value": 961
+        },
+        "sqImg": {
+          "value": 17161
+        },
+        "matchesDateTimeRegex": {
+          "value": 0
+        },
+        "titleCasePercent": {
+          "value": 0
+        },
+        "matchesNameList": {
+          "value": 0
+        },
+        "length": {
+          "value": 5
+        },
+        "descendedFromA": {}
+      },
+      {
+        "tags": {
+          "weights": {
+            "h1": 4.45930853169174,
+            "h2": -5.022869325871193,
+            "h3": -3.824942076826986,
+            "h4": -4.507599064752632,
+            "h5": 0.5,
+            "h6": 3.828641275515184,
+            "p": -5.828618459345046,
+            "span": -6.02956686241676
+          },
+          "value": 0.5,
+          "_sum": 0
+        },
+        "sharedAncestors": {
+          "value": 0.011266077380778115,
+          "weights": {
+            "saContent": -0.8250981303518831,
+            "saImg": -0.6664448862043335
+          },
+          "_sum": -4.47462904966865
+        },
+        "squareDistanceFrom": {
+          "value": 0,
+          "weights": {
+            "sqContent": -10.777050182748171,
+            "sqImg": -0.7798600461765706
+          },
+          "_sum": -23739.92347805712
+        },
+        "distanceFrom": {
+          "value": 4.328809273260318e-164,
+          "weights": {
+            "dfContent": -1.9464756311218656,
+            "dfImg": -2.410823802875399
+          },
+          "_sum": -376.15866274145515
+        },
+        "titleCasePercent": {
+          "value": 0.5,
+          "weights": {
+            "titleCasePercent": 0.5
+          },
+          "_sum": 0
+        }
+      },
+      {
+        "output": {
+          "value": 0.008222485576785652,
+          "weights": {
+            "tags": 15.205935958668396,
+            "sharedAncestors": -1.229619083339449,
+            "squareDistanceFrom": 0.035723025390398365,
+            "distanceFrom": -0.7796329871389344,
+            "titleCasePercent": -24.76348250588684
+          },
+          "_sum": -4.792626257351007
+        }
+      }
+    ],
+    "date": [
+      {
+        "h1": {},
+        "h2": {},
+        "h3": {},
+        "h4": {},
+        "h5": {},
+        "h6": {},
+        "span": {},
+        "p": {},
+        "saContent": {
+          "value": 3
+        },
+        "saImg": {
+          "value": 3
+        },
+        "dfContent": {
+          "value": 31
+        },
+        "dfImg": {
+          "value": 131
+        },
+        "dfBy": {},
+        "sqBy": {},
+        "sqContent": {
+          "value": 961
+        },
+        "sqImg": {
+          "value": 17161
+        },
+        "matchesDateTimeRegex": {
+          "value": 0
+        },
+        "titleCasePercent": {
+          "value": 0
+        },
+        "matchesNameList": {
+          "value": 0
+        },
+        "length": {
+          "value": 5
+        },
+        "descendedFromA": {}
+      },
+      {
+        "tags": {
+          "weights": {
+            "h1": -4.458231468858161,
+            "h2": -5.022869325871193,
+            "h3": -3.824942076826986,
+            "h4": -4.507599064752632,
+            "h5": 0.5,
+            "h6": -3.824942076826986,
+            "p": -0.012335169376268287,
+            "span": -5.093648702600533
+          },
+          "value": 0.5,
+          "_sum": 0
+        },
+        "sharedAncestors": {
+          "value": 0.004456928579700274,
+          "weights": {
+            "saContent": -0.9636731699965281,
+            "saImg": -0.8392696697197702
+          },
+          "_sum": -5.408828519148895
+        },
+        "squareDistanceFrom": {
+          "value": 0,
+          "weights": {
+            "sqContent": -10.777050182748171,
+            "sqImg": -0.7798600461765706
+          },
+          "_sum": -23739.92347805712
+        },
+        "distanceFrom": {
+          "value": 4.208001384747771e-164,
+          "weights": {
+            "dfContent": -1.9461927893612554,
+            "dfImg": -2.41110680134591
+          },
+          "_sum": -376.1869674465131
+        },
+        "matchesDateTimeRegex": {
+          "value": 0.5,
+          "weights": {
+            "matchesDateTimeRegex": -4.769505989297438
+          },
+          "_sum": 0
+        },
+        "length": {
+          "value": 1.732258117113797e-8,
+          "weights": {
+            "length": -3.574250979847293
+          },
+          "bias": -3,
+          "_sum": -17.871254899236465
+        }
+      },
+      {
+        "output": {
+          "value": 0.0000010317857994584986,
+          "weights": {
+            "tags": -8.628301186586029,
+            "sharedAncestors": -2.0840331792769966,
+            "squareDistanceFrom": -0.020369170015642268,
+            "distanceFrom": -0.7604547342708325,
+            "matchesDateTimeRegex": -18.92155883029256,
+            "length": -2.531322391843724
+          },
+          "_sum": -13.784218439326096
+        }
+      }
+    ]
+  },
+  "minContentWords": 25
 }
