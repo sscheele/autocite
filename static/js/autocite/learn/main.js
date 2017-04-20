@@ -20,6 +20,30 @@ function generateCandidates(wordInfo) {
     return tagWords;
 }
 
+function predictFromHTML(body, numPredictions) {
+    var probs = { author: [], title: [], date: [] };
+    var doc = parse5.parse(body); // Parse the HTML
+    var wordInfo = getWordInfo(doc);
+
+    var candidates = generateCandidates(wordInfo);
+
+    //show initial values
+    for (var candidate in candidates) {
+        var inNode = nnlib.genInputNodes(candidates[candidate].words);
+        for (nnName in config.cfg.nns) {
+            var prob = nnlib.predict(config.cfg.nns[nnName], inNode);
+            probs[nnName].push({ val: candidates[candidate].raw, "prob": prob });
+        }
+    }
+
+    for (var target in probs) {
+        probs[target].sort(function (a, b) { return b.prob - a.prob; });
+        probs[target] = probs[target].slice(0, numPredictions);
+    }
+
+    return probs;
+}
+
 (function () {
     if (process.argv.length <= 2) {
         console.log("Required argument: a file with a list of urls");
@@ -37,36 +61,13 @@ function generateCandidates(wordInfo) {
         }
         var url = lines[i];
         request(lines[i], function (error, response, body) {
-            var probs = { author: [], title: [], date: [] };
-
             console.log(url + ':');
             if (error) {
                 console.log('error:', error); // Print the error if one occurred
                 return;
             }
-            var doc = parse5.parse(body); // Parse the HTML
-            var wordInfo = getWordInfo(doc);
-
-            //console.log(JSON.stringify(wordInfo, null, 2));
-            //console.log(JSON.stringify(nns));
-            //console.log(JSON.stringify(inputNode, null, 2));
-
-            var candidates = generateCandidates(wordInfo);
-
-            //show initial values
-            for (var candidate in candidates) {
-                var inNode = nnlib.genInputNodes(candidates[candidate].words);
-                for (nnName in config.cfg.nns) {
-                    var prob = nnlib.predict(config.cfg.nns[nnName], inNode);
-                    probs[nnName].push({ val: candidates[candidate].raw, "prob": prob });
-                }
-            }
-
-            for (var target in probs) {
-                probs[target].sort(function (a, b) { return b.prob - a.prob; });
-                probs[target] = probs[target].slice(0, 5);
-            }
-
+            var probs = predictFromHTML(body, 5);
+            
             console.log(JSON.stringify(probs, null, 2));
         });
     }

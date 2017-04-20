@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>Autocite</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/stylesheets/materialize.min.css">
+    <link rel="stylesheet" href="/static/stylesheets/basic.css">
+</head>
+
+<body>
+    <nav class="light-blue" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Autocite</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+    <div class="yellow lighten-5" id="base-container"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <h3>Hi!</h3>
+            </div>
+        </div>
+        <div class="row" id="cors-error">
+            <div class="card-panel red lighten-3">
+                <h4>It looks like your browser has CORS enabled</h4>
+                <p>CORS is a security feature which prevents webpages from downloading other webpages. This site downloads other webpages to automatically detect the title, author, and date of news articles. You can download a browser plugin to disable CORS:</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- begin scripts -->
+    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/materialize.min.js"></script>
+    <script>
+        // google people know js
+        (function ($) {
+            $(function () {
+                $('.button-collapse').sideNav();
+            }); // end of document ready
+        })(jQuery); // end of jQuery name space
+    </script>
+</body>
+
+</html>
