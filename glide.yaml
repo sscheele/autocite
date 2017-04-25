@@ -1,0 +1,4 @@
+package: github.com/sscheele/autocite
+import:
+- package: github.com/go-zoo/bone
+  version: ^1.2.0

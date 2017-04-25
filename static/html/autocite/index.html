@@ -27,12 +27,23 @@
                 <h3>Hi!</h3>
             </div>
         </div>
-        <div class="row" id="cors-error">
+        <div class="row hide" id="cors-error">
             <div class="card-panel red lighten-3">
                 <h4>It looks like your browser has CORS enabled</h4>
-                <p>CORS is a security feature which prevents webpages from downloading other webpages. This site downloads other webpages to automatically detect the title, author, and date of news articles. You can download a browser plugin to disable CORS:</p>
-                
+                <p>CORS is a security feature which prevents webpages from downloading other webpages. This site downloads other
+                    webpages to automatically detect the title, author, and date of news articles. You can download a browser
+                    plugin to disable CORS:</p>
+                <a class="waves-effect waves-light light-blue btn" href="https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/"
+                    target="_blank">Firefox</a>
+                <a class="waves-effect waves-light light-blue btn" href="https://chrome.google.com/webstore/detail/cors-toggle/omcncfnpmcabckcddookmnajignpffnh?hl=en"
+                    target="_blank">Chrome</a>
             </div>
+        </div>
+        <div class="row">
+            <em>I'm excited you want to use Autocite! I had a lot of fun making this project, but please keep in mind that it's just a hobby - it won't be perfect. By using Autocite, you'll improve it for others. Thanks, and enjoy!</em>
+        </div>
+        <div class="row">
+            <a class="waves-effect waves-light btn"><i class="material-icons right">play_arrow</i>Continue</a>
         </div>
     </div>
 
@@ -46,6 +57,19 @@
                 $('.button-collapse').sideNav();
             }); // end of document ready
         })(jQuery); // end of jQuery name space
+    </script>
+    <script>
+        $.ajax({
+            url: 'https://example.com',
+            type: 'GET',
+            error: function (err) {
+                console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+            }
+        }).always(function (jqXHR, textStatus) {
+            if (textStatus != "success") {
+                $('#cors-error').removeClass('hide');
+            }
+        });
     </script>
 </body>
 
