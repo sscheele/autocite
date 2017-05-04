@@ -1,5 +1,4 @@
 var badTags = ['head', 'link', 'script', 'nav', 'form', 'style'];
-var config = require('./config.js').cfg;
 
 //trim irrelevant tags (the ones in badTags) and add content variables
 function preprocessHelper(doc) {
@@ -18,7 +17,7 @@ function preprocessHelper(doc) {
         }
         preprocessHelper(doc.childNodes[i]); //yeeeeeeah, recursion in a for loop
     }
-    doc.isContent = totalWords > config.minContentWords;
+    doc.isContent = totalWords > config.cfg.minContentWords;
 }
 
 function duplicateArray(arr) {
@@ -159,7 +158,7 @@ function getDistances(nn) {
 }
 
 module.exports = function (doc) {
-    preprocessHelper(doc, config);
+    preprocessHelper(doc, config.cfg);
     var nn = genWordObjects(doc);
     getDistances(nn);
     return nn;

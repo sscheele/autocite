@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>Autocite</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/stylesheets/materialize.min.css">
+    <link rel="stylesheet" href="/static/stylesheets/basic.css">
+    <style>
+        body {
+            color: white;
+        }
+        
+        label {
+            font-size: 200%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="light-blue" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Autocite</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+    <div class="grey darken-3" id="base-container"></div>
+    <div class="container">
+        <div class="row">
+            <div class="center-align"><span style="color: grey;" id="load-label">Loading neural net, please wait</span></div>
+        </div>
+        <div id="prev-list">
+
+        </div>
+        <div id="link-add">
+            <div class="row">
+                <h3>Add a Link:</h3>
+            </div>
+            <div class="row">
+                <div class="input-field col s11">
+                    <input placeholder="http://example.com" id="link-input" type="text">
+                    <label for="link-input">Site URL</label>
+                </div>
+                <a class="btn-floating btn-large waves-effect waves-light green" id="link-add-btn"><i class="material-icons">add</i></a>
+            </div>
+            <div class="row">
+                <div class="input-field col s11">
+                    <textarea id="multi-link-input" class="materialize-textarea"></textarea>
+                    <label for="multi-link-input">URLs (one per line)</label>
+                </div>
+                <a class="btn-floating btn-large waves-effect waves-light green" id="multi-link-add-btn"><i class="material-icons">add</i></a>
+            </div>
+        </div>
+        <div id="article-verify" class="row hide">
+            <div class="row">
+                <h3>Verify Information:</h3>
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+        <div class="row center-align">
+            <a class="waves-effect waves-light btn"><i class="material-icons right">keyboard_arrow_right</i>Generate All Citations</a>
+        </div>
+    </div>
+
+    <!-- begin scripts -->
+    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/materialize.min.js"></script>
+    <script>
+        // google people know js
+        (function ($) {
+            $(function () {
+                $('.button-collapse').sideNav();
+            }); // end of document ready
+        })(jQuery); // end of jQuery name space
+    </script>
+    <script src="/static/js/autocite/parse/bundle.js"></script>
+</body>
+
+</html>
