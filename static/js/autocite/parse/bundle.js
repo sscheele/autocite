@@ -24,6 +24,32 @@ var nnlib = require('./nn.js');
     }
 
     var numPredictions = 5;
+    var numRowsAdded = 0;
+
+    function addVerifyRow(probs, url){
+        //card HTML requirements: upper id, title, dropdownHTMLParts
+        var cardHTMLParts = ['<div class="card blue-grey darken-1" id="', '">\n<div class="card-content white-text">\n<span class="card-title">\n', '</span>\n<div class="card-action">\n', '</div>\n</div>\n</div>\n'];
+        //dropdown HTML requirements: lower id, feature name, lower id
+        var dropdownHTMLParts = ['<a class="dropdown-button btn col s4" href="#" data-activates="', '">\n', '</a>\n<ul id="', '">\n', '</ul>\n'];
+        var dropdownInnerHTMLParts = ['<li><a href="#" class="dd-sel-btn">\n','\n</a></li>\n']
+
+        var finalHTML = cardHTMLParts[0] + numRowsAdded + cardHTMLParts[1] + url + cardHTMLParts[2];
+        for (var feature in probs){
+            var lowerID = '' + numRowsAdded + feature;
+            finalHTML += dropdownHTMLParts[0] + lowerID + dropdownHTMLParts[1] + feature + dropdownHTMLParts[2] + lowerID + dropdownHTMLParts[3];
+            for (var prb in probs[feature]){
+                finalHTML += dropdownInnerHTMLParts[0] + probs[feature][prb].val + dropdownInnerHTMLParts[1];
+            }
+            finalHTML += dropdownHTMLParts[4];
+        }
+        finalHTML += cardHTMLParts[3];
+        
+        $("#verify-items").append(finalHTML);
+        //re-initialize dropdowns I just added dynamically
+        $('.dropdown-button').dropdown({});
+    }
+
+    var probs = {};
 
     var handler = new htmlparser.DomHandler(function (err, dom) {
         console.log(JSON.stringify(config, null, 2));
@@ -31,7 +57,6 @@ var nnlib = require('./nn.js');
             console.log("Error: " + err);
             return;
         }
-        var probs = { author: [], title: [], date: [] };
         var wordInfo = getWordInfo(dom);
 
         var candidates = generateCandidates(wordInfo);
@@ -49,8 +74,6 @@ var nnlib = require('./nn.js');
             probs[target].sort(function (a, b) { return b.prob - a.prob; });
             probs[target] = probs[target].slice(0, numPredictions);
         }
-
-        console.log(JSON.stringify(probs, null, 2));
     }, { normalizeWhitespace: true });
 
     //add jquery triggers, etc
@@ -89,15 +112,36 @@ var nnlib = require('./nn.js');
                 }
             });
         }()).done(function (a1, a2, a3) {
-            $.get('https://www.washingtonpost.com/news/the-fix/wp/2017/05/03/breitbarts-frustration-with-president-trump-just-boiled-over/?tid=pm_politics_pop&utm_term=.e7ac237e6c1f', function (data, status) {
-                console.log("Parsing");
-                var parser = new htmlparser.Parser(handler);
-                parser.write(data);
-                console.log("Wrote");
-                parser.end();
-                console.log("Done");
-            })
-        })
+            var predictFromURL = function (url) {
+                probs = { author: [], title: [], date: [] };
+                $.get(url, function (data, status) {
+                    console.log("Parsing");
+                    var parser = new htmlparser.Parser(handler);
+                    parser.write(data);
+                    parser.end();
+                    addVerifyRow(probs, url);
+                });
+            }
+
+            //add jquery triggers, etc
+            $("#link-add-btn").click(function (event) {
+                predictFromURL($("#link-input").val());
+            });
+            $("#multi-link-add-btn").click(function (event) {
+                var urls = $("#multi-link-input").val().split("\n");
+                for (var i = 0; i < urls.length; i++) {
+                    predictFromURL(urls[i]);
+                }
+                $("#article-verify").removeClass('hide');
+            });
+            $("#link-input").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    predictFromURL($("#link-input").val());
+                    e.preventDefault();
+                }
+            });
+        });
+
     }());
 })();
 },{"./nn.js":3,"./preprocess.js":34,"htmlparser2":32}],2:[function(require,module,exports){
